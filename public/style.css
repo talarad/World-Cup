@@ -1,0 +1,215 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: white;
+}
+
+.sign,
+.sign ul {
+  position: absolute;
+  margin: 0;
+  padding: 9px 20px;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, .1);
+  -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -moz-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -o-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -ms-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  z-index: 11;
+  background: rgba(18, 18, 18, .93);
+  right: 3%;
+  top: 8%;
+  opacity: 0.75;
+}
+
+.menu,
+.menu ul {
+  display: block;
+  position: absolute;
+  margin: 0;
+  padding: 9px 20px;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, .1);
+  -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -moz-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -o-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  -ms-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+  z-index: 11;
+  background: rgba(18, 18, 18, .93);
+  left: 3%;
+  top: 8%;
+  opacity: 0.75;
+}
+
+a:hover { 
+  background-color: red;
+}
+
+.sign a {
+  transition: background-color 0.7s ease-out;
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sign li {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.desc {
+  display: block;
+  color: #ffffff;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  font: 28px "Lato", sans-serif;
+  text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
+}
+
+.menu a {
+  transition: background-color 1s ease-out;
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu li {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.img1, .img2, .img3, .img4  {
+  position: relative;
+  opacity: 0.85;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index:-1
+}
+
+.img1 {
+  background-image: url("wc1.jpg");
+  min-height: 100vh;
+}
+
+.img2 {
+  background-image: url("wc2.jpg");
+  min-height: 400px;
+}
+
+.img3 {
+  background-image: url("wc3.jpg");
+  min-height: 400px;
+}
+
+.img4 {
+  background-image: url("wc1.jpg");
+  min-height: 400px;
+}
+
+.caption {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-transform: uppercase;
+  font: 28px "Lato" sans-serif ;
+  color: white;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  letter-spacing: 4px;
+  background: rgba(18, 18, 18, .93);
+  padding: 10px 14px;
+  font: 28px "Lato", sans-serif;
+  text-transform: uppercase;
+  border-spacing: 10px
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+  text-align:center;
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+
+.login {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  color: #000;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-transform: uppercase;
+  font: 28px "Lato" sans-serif ;
+  color: white;
+}
+
+.log {
+  margin: 10px;
+  letter-spacing: 4px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font: 14px "Lato", sans-serif;
+  text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
+}
+
+.teams {
+  color: #777;
+  background-color:white;
+  text-align:center;
+  padding:50px 80px;
+  text-align: justify;
+}
+
+.border {
+  background-color:transparent;font-size:25px;color: #f7f7f7;
+}
+
+
+.regular {
+   color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;;
+}
+
