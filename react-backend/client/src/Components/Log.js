@@ -10,7 +10,7 @@ export default class Log extends React.Component {
             )
         } else {
             return (
-                <div className="img4">
+                <div className="img4" id="login">
                     <span className="login">
                         <div className="log">User name:
                         <input type="text" id='username' />

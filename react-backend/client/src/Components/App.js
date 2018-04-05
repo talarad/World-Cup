@@ -7,6 +7,7 @@ import Teams from './Teams.js';
 import Games from './Games.js';
 import Log from './Log.js';
 import ServerMethods from './ServerMethods.js'
+import base from '../base';
 
 export default class App extends React.Component {
   constructor() {
@@ -22,7 +23,7 @@ export default class App extends React.Component {
   login(usename, password) {
     ServerMethods.getUser(usename, password)
       .then(user => {
-        if (user !== false) {
+        if (user.status) {
           const state = { ...this.state }
           const loggedUser = user.user;
           loggedUser.groups = user.userGroups;
@@ -35,13 +36,12 @@ export default class App extends React.Component {
       })
   }
 
-  componentWillMount() {
-    const matches = fetch('http://worldcup.sfg.io/matches').then(res => res.json())
-    const results = fetch('http://worldcup.sfg.io/teams/group_results').then(res => res.json())
-    const teams = fetch('http://worldcup.sfg.io/teams/').then(res => res.json())
-    const current = fetch('http://worldcup.sfg.io/matches/current').then(res => res.json())
+  componentDidMount() {
 
-    Promise.all([matches, results, teams, current]).then(([matches, results, teams, current]) => this.setState({ matches, results, teams, current }))
+  }
+
+  componentWillMount() {
+    //fetch('https://www.flashscore.com/standings/fFsiH75r/OneVXSrp/#table').then(data => console.log(data))
   }
 
   signout() {
@@ -49,16 +49,19 @@ export default class App extends React.Component {
   }
 
   changeGroupView(group) {
+    
     const user = { ...this.state.user };
     user.groupToShow = group;
     this.setState({ user })
   }
 
   getgroup() {
-    if (this.state.user && this.state.user.groupToShow) {
-      return (this.state.user.groupToShow);
+    if (this.state.user && this.state.user.groups && this.state.user.groupToShow) {
+      const str = `group${this.state.user.groupToShow}`
+      console.log(this.state.user.groups[str]);
+      return (this.state.user.groups[str]);
     } else if (this.state.user && this.state.user.groups) {
-      return (this.state.user.groups[0])
+      return (this.state.user.groups.group0)
     } else {
       return undefined
     }
@@ -68,12 +71,12 @@ export default class App extends React.Component {
     return (
       <div>
         <Home signout={this.signout} user={this.state.user} />
-        <Teams />
         <About />
-        <Games />
         <Scores changeGroupView={this.changeGroupView} group={this.getgroup()} user={this.state.user} />
+        <Games />
+        <Teams />
         <Manage />
-        <Log user={this.state.user} login={this.login} />
+        <Log user={this.state.user} login={this.login} />        
       </div>
     )
   }

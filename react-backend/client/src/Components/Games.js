@@ -4,8 +4,10 @@ export default class Games extends React.Component {
 
     render() {
         return (
-            <div className="regular">
-              <p>Create and manage friends bets</p>
+            <div className="regular" id="games">
+                <div className="border">
+                    <p className="desc3">View recent and future games</p>
+                </div>
             </div>
         )
     }

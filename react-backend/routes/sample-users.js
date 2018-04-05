@@ -6,7 +6,7 @@ const Users = [
     lastname: 'Arad',
     image: 'https://scontent.fsdv2-1.fna.fbcdn.net/v/t1.0-9/11817080_10203732063136934_6024354804949111313_n.jpg?oh=b9002325a6405624579887d3f2fb86cc&oe=5B1C7B9F',
     id: 0,
-    groups: [0,1]
+    groups: [0, 1, 2]
   },
 
   {
@@ -77,6 +77,15 @@ const Users = [
     id: 7,
     groups: [0]
   },
+  {
+    username: 'shiran',
+    password: '123456',
+    firstName: 'Shiran',
+    lastname: 'Kushnir',
+    image: '',
+    id: 8,
+    groups: [0, 2]
+  }
 ]
 
 module.exports = Users;

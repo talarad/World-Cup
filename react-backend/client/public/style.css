@@ -24,7 +24,7 @@ body, html {
   z-index: 14;
   background: rgba(18, 18, 18, .93);
   right: 3%;
-  top: 8%;
+  top: 5%;
   opacity: 0.75;
 }
 
@@ -49,7 +49,7 @@ body, html {
   z-index: 14;
   background: rgba(18, 18, 18, .93);
   left: 3%;
-  top: 8%;
+  top: 5%;
   opacity: 0.75;
 }
 
@@ -76,15 +76,33 @@ a:hover {
   overflow: hidden;
 }
 
-.desc {
-  display: block;
-  color: #ffffff;
-  height: 10vh;
-  font-weight: 700;
+.desc1 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 24px;
+  font-weight: 800;
   text-transform: uppercase;
-  text-decoration: none;
-  font: 36px "Lato", sans-serif;
-  text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
+  color: rgba(255, 255, 255, .8);
+}
+
+.desc2 {
+  margin: 0;
+  padding: 0;
+  font-family: "Libre Baskerville", "Times New Roman", Times, serif;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1.3;
+  color: #d8d8d8;
+}
+
+.desc3 {
+  font-size: 17px;
+  font-weight: 300;
+  text-align: center;
+  color: rgb(224, 224, 224);
+  line-height: 1.8;
 }
 
 .menu a {
@@ -108,7 +126,6 @@ a:hover {
 
 .img1, .img2, .img3, .img4  {
   position: relative;
-  opacity: 0.85;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -122,13 +139,13 @@ a:hover {
 }
 
 .img2 {
-  background-image: url("wc2.jpg");
+  background-image: url("wc3.jpg");
   min-height: 400px;
 }
 
 .img3 {
-  background-image: url("wc3.jpg");
-  min-height: 600px;
+  background-image: url("wc2.jpg");
+  min-height: 100vh;
 }
 
 .img4 {
@@ -140,13 +157,14 @@ a:hover {
   position: absolute;
   display: inline-block;
   width: 100%;
-  top: 5vh;
+  top: 12vh;
   text-align: center;
   color: #000;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
   font: 28px "Lato" sans-serif ;
   color: white;
+  z-index: 15;
 }
 
 .button3 {
@@ -159,6 +177,7 @@ a:hover {
   border-radius:2em;
   box-sizing: border-box;
   text-decoration:none;
+  text-transform: none;
   font-family:'Roboto',sans-serif;
   font-weight:300;
   font-size: 14px;;
@@ -210,7 +229,7 @@ a:hover {
   padding: 8px;
 }
 
-.friends tr:nth-child(even){background-color: #f2f2f2; color: #000000}
+.friends tr{background-color: #f2f2f2; color: #000000}
 
 .friends tr:hover {background-color: #ddd;}
 
@@ -225,7 +244,7 @@ a:hover {
 
 .caption {
   position: absolute;
-  top: 35vh;
+  top: 25vh;
   width: 100%;
   text-align: center;
   color: #000;
@@ -275,7 +294,6 @@ h3 {
 .log, .login {
   margin: 10px;
   letter-spacing: 4px;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   color: white;
   text-transform: uppercase;
   text-decoration: none;
@@ -284,20 +302,53 @@ h3 {
   z-index: 12;
 }
 
-.teams {
-  color: #777;
-  background-color:white;
-  text-align:center;
-  padding:50px 80px;
-  text-align: justify;
-}
-
 .border {
   background-color:transparent;font-size:25px;color: #f7f7f7;
 }
 
 
 .regular {
-   color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;;
+  color: #ddd;
+  background-color:#282E34;
+  text-align:center;
+  padding:50px 80px;
+  color: white;
+  text-decoration: none;
+  font: 14px "Lato", sans-serif;
+  text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
 }
 
+
+.regular-text {
+  color: #ddd;
+  text-align:center;
+  padding:50px 80px;
+  letter-spacing: 4px;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font: 14px "Lato", sans-serif;
+  text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
+}
+
+.scroll-down {
+  width: 150px;
+  height: 43px;
+  margin-left: -75px;
+  line-height: 43px;
+  white-space: nowrap;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .5) !important;
+  -webkit-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -moz-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  -o-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+}

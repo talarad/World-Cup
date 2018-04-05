@@ -1,5 +1,4 @@
 import React from 'react';
-//import styles from '../../public/style.css';
 
 export default class Home extends React.Component {
 
@@ -9,10 +8,10 @@ export default class Home extends React.Component {
                 <div>
                     <ul className="sign">
                         <li>
-                            <a href="#up">Sign Up!</a>
+                            <a href="#login">Sign Up!</a>
                         </li>
                         <li>
-                            <a href="#in">Sign in!</a>
+                            <a href="#login">Sign in!</a>
                         </li>
                     </ul>
                 </div>
@@ -41,16 +40,19 @@ export default class Home extends React.Component {
                         <a href="#home">Home</a>
                     </li>
                     <li>
-                        <a href="#about">Teams</a>
+                        <a href="#about">About</a>
                     </li>
                     <li>
-                        <a href="#services">Games</a>
+                        <a href="#teams">Teams</a>
                     </li>
                     <li>
-                        <a href="#team">Score</a>
+                        <a href="#games">Games</a>
                     </li>
                     <li>
-                        <a href="#contact">Create & manage</a>
+                        <a href="#score">Score</a>
+                    </li>
+                    <li>
+                        <a href="#manage">Create & manage</a>
                     </li>
                     <li>
                         <a href="#login">Log in</a>
@@ -58,14 +60,8 @@ export default class Home extends React.Component {
                 </ul>
 
 
-                <div className="img1">
-                    <div className="caption">
-                        <div className="border">
-                            <p className="desc">Compete with your friends</p>
-                            <p className="desc">Track your score</p>
-                            <p className="desc">Get live updates</p>
-                        </div>
-                    </div>
+                <div className="img1" id="home">
+
                 </div>
             </div>
         )

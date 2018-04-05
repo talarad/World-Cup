@@ -12,9 +12,9 @@ router.post('/', function (req, res, next) {
   const user = login(username, password)
   if (user) {
     const userGroups = getGroups(user);
-    res.json({ user, userGroups });
+    res.json({ user, userGroups, status: true });
   } else {
-    res.json(false)
+    res.json({ status: false })
   }
 });
 
@@ -33,16 +33,19 @@ function login(username, password) {
 }
 
 function getGroups(user) {
-  let userGroup = []
+  let userGroup = {}
 
-  user.groups.forEach(group => {
-    Groups[group].forEach((friendIndex, index) => {
+  user.groups.forEach((group, groupIdx) => {
+    const grp = `group${groupIdx}`;
+   
+    userGroup[grp] = {};
+    userGroup[grp].name = Groups[group].name;
+    Groups[group].members.forEach((friend, index) => {
       if (index === 0) {
-        userGroup.push([]);
+        userGroup[grp].members = [];
       }
-      
-      userGroup[group].push(Users[friendIndex]);
 
+      userGroup[grp].members.push(friend);
     })
   })
 
