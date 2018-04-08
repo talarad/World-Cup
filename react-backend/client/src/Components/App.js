@@ -7,7 +7,6 @@ import Teams from './Teams.js';
 import Games from './Games.js';
 import Log from './Log.js';
 import ServerMethods from './ServerMethods.js'
-import base from '../base';
 
 export default class App extends React.Component {
   constructor() {
@@ -16,6 +15,8 @@ export default class App extends React.Component {
     this.signout = this.signout.bind(this);
     this.login = this.login.bind(this)
     this.changeGroupView = this.changeGroupView.bind(this)
+    this.updateBet = this.updateBet.bind(this);
+    this.getgroup = this.getgroup.bind(this)
 
     this.state = {};
   }
@@ -35,13 +36,18 @@ export default class App extends React.Component {
         }
       })
   }
+  
+  // componentDidMount() {
 
-  componentDidMount() {
-
-  }
+  // }
 
   componentWillMount() {
-    //fetch('https://www.flashscore.com/standings/fFsiH75r/OneVXSrp/#table').then(data => console.log(data))
+    ServerMethods.getData()
+      .then(data => {
+        if (data.status) {
+          this.setState({ games: data.games })
+        }
+      })
   }
 
   signout() {
@@ -49,7 +55,6 @@ export default class App extends React.Component {
   }
 
   changeGroupView(group) {
-    
     const user = { ...this.state.user };
     user.groupToShow = group;
     this.setState({ user })
@@ -58,7 +63,6 @@ export default class App extends React.Component {
   getgroup() {
     if (this.state.user && this.state.user.groups && this.state.user.groupToShow) {
       const str = `group${this.state.user.groupToShow}`
-      console.log(this.state.user.groups[str]);
       return (this.state.user.groups[str]);
     } else if (this.state.user && this.state.user.groups) {
       return (this.state.user.groups.group0)
@@ -67,16 +71,31 @@ export default class App extends React.Component {
     }
   }
 
+  updateBet(user, matchID, homeTeamScore, awayTeamScore) {
+    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
+    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
+    if (homeCheck && awayCheck) {
+      ServerMethods.bet(user, matchID, homeTeamScore, awayTeamScore)
+        .then(data => {
+          if (data.status) {
+            this.setState({ user: data.user })
+          }
+        })
+    } else {
+      alert("Please enter valid values");
+    }
+  }
+
   render() {
     return (
       <div>
         <Home signout={this.signout} user={this.state.user} />
         <About />
-        <Scores changeGroupView={this.changeGroupView} group={this.getgroup()} user={this.state.user} />
-        <Games />
+        <Scores changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
+        <Games games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
         <Teams />
         <Manage />
-        <Log user={this.state.user} login={this.login} />        
+        <Log user={this.state.user} login={this.login} />
       </div>
     )
   }

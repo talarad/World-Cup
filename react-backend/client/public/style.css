@@ -79,21 +79,22 @@ a:hover {
 .desc1 {
   margin-top: 0;
   margin-bottom: 5px;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 800;
   text-transform: uppercase;
   color: rgba(255, 255, 255, .8);
+  line-height: 3;
 }
 
 .desc2 {
   margin: 0;
   padding: 0;
   font-family: "Libre Baskerville", "Times New Roman", Times, serif;
-  font-size: 16px;
+  font-size: 20;
   font-style: italic;
   font-weight: normal;
   text-align: center;
-  line-height: 1.3;
+  line-height: 2;
   color: #d8d8d8;
 }
 
@@ -157,7 +158,7 @@ a:hover {
   position: absolute;
   display: inline-block;
   width: 100%;
-  top: 12vh;
+  top: 8vh;
   text-align: center;
   color: #000;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -165,6 +166,8 @@ a:hover {
   font: 28px "Lato" sans-serif ;
   color: white;
   z-index: 15;
+
+ 
 }
 
 .button3 {
@@ -179,16 +182,17 @@ a:hover {
   text-decoration:none;
   text-transform: none;
   font-family:'Roboto',sans-serif;
-  font-weight:300;
-  font-size: 14px;;
   color:#FFFFFF;
-  background-color:#4eb5f1;
+  background-color:#282E34;
   text-align:center;
   transition: all 0.2s;
+  font-size: 20px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, .8);
 }  
 
 .button3:hover{
-  background-color:#4095c6;
+  background-color:red;
  }
 
 
@@ -202,20 +206,20 @@ a:hover {
 
 .group-table {
   position: absolute;
-  top: 10vh;
+  top: 7vh;
   width: 100%;
   text-align: center;
   color: #000;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
-  font: 28px "Lato" sans-serif ;
+  font: 20px "Lato" sans-serif ;
   color: white;
 }
 
 .friends {
   position: relative;
   top: 10vh;
-  text-align: left;
+  text-align: center;
   width: 50vw;
   left: 25vw;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -226,7 +230,7 @@ a:hover {
 
 .friends td, .friends th {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 5px;
 }
 
 .friends tr{background-color: #f2f2f2; color: #000000}
@@ -235,10 +239,10 @@ a:hover {
 
 .friends th {
   text-align: center;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  background-color: #282E34;
   color: white;
 }
 
@@ -247,7 +251,7 @@ a:hover {
   top: 25vh;
   width: 100%;
   text-align: center;
-  color: #000;
+  color: #282E34;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   text-transform: uppercase;
   font: 28px "Lato" sans-serif ;
@@ -255,10 +259,11 @@ a:hover {
 }
 
 .caption span.border {
-  background-color: #111;
+
+  background-color: #282E34;
   color: #fff;
   letter-spacing: 4px;
-  background: rgba(18, 18, 18, .93);
+  background: rgba(0, 0, 0, .8);
   padding: 10px 14px;
   font: 28px "Lato", sans-serif;
   text-transform: uppercase;
@@ -311,18 +316,20 @@ h3 {
   color: #ddd;
   background-color:#282E34;
   text-align:center;
-  padding:50px 80px;
+  padding:20px 80px;
   color: white;
   text-decoration: none;
   font: 14px "Lato", sans-serif;
   text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
+  min-height: 250px;
+  
 }
 
 
 .regular-text {
   color: #ddd;
   text-align:center;
-  padding:50px 80px;
+  padding:20px 80px;
   letter-spacing: 4px;
   color: white;
   text-transform: uppercase;
@@ -331,24 +338,33 @@ h3 {
   text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
 }
 
-.scroll-down {
-  width: 150px;
-  height: 43px;
-  margin-left: -75px;
-  line-height: 43px;
-  white-space: nowrap;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-decoration: none;
+
+
+.game {
+  padding: 10px;
+  align-content: center;
+  align-items: center;
   text-align: center;
+  margin: 20px;
+  float: left;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgb(224, 224, 224);
+  line-height: 1.8;
+  min-height: 120px;
+  min-width: 12vw;
+  border: 5px solid #ddd;
+}
+
+.betInput {
+  width: 35px;
+  margin: 8px;
+}
+
+span {
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .5) !important;
-  -webkit-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -moz-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  -o-transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  transition: all 500ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  font: 20px "Lato", sans-serif;
+  color: red;
+  font-weight: bold;
 }

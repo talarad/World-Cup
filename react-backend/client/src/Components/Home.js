@@ -5,36 +5,22 @@ export default class Home extends React.Component {
     renderSign() {
         if (this.props.user === undefined) {
             return (
-                <div>
-                    <ul className="sign">
-                        <li>
-                            <a href="#login">Sign Up!</a>
-                        </li>
-                        <li>
-                            <a href="#login">Sign in!</a>
-                        </li>
-                    </ul>
-                </div>
+                <li>
+                    <a href="#login">Sign Up / Sign in</a>
+                </li>
             )
         } else {
             return (
-                <div>
-                    <ul className="sign">
-                        Hello, {this.props.user.firstName}!
-                        <li onClick={() => this.props.signout()}>
-                            <a href="#signOut" >Sign Out</a>
-                        </li>
-                    </ul>
-                </div>
+                <li onClick={() => this.props.signout()}>
+                    <a href="#signOut" >Sign Out</a>
+                </li>
             )
         }
     }
 
     render() {
         return (
-            <div>
-                {this.renderSign()}
-
+            <div className="img1" id="home">
                 <ul className="menu">
                     <li>
                         <a href="#home">Home</a>
@@ -55,14 +41,9 @@ export default class Home extends React.Component {
                         <a href="#manage">Create & manage</a>
                     </li>
                     <li>
-                        <a href="#login">Log in</a>
+                        {this.renderSign()}
                     </li>
                 </ul>
-
-
-                <div className="img1" id="home">
-
-                </div>
             </div>
         )
     }

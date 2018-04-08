@@ -5,6 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="./style.css">
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDLcs81oQQJ9GnAAOFNHW5oqA5pNC5IDWg",
+      authDomain: "world-cup-64771.firebaseapp.com",
+      databaseURL: "https://world-cup-64771.firebaseio.com",
+      projectId: "world-cup-64771",
+      storageBucket: "world-cup-64771.appspot.com",
+      messagingSenderId: "678224116968"
+    };
+    firebase.initializeApp(config);
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
