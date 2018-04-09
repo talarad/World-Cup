@@ -1,26 +1,24 @@
 import React from 'react';
+import Log from './Log.js';
 
 export default class Home extends React.Component {
 
     renderSign() {
-        if (this.props.user === undefined) {
-            return (
-                <li>
-                    <a href="#login">Sign Up / Sign in</a>
-                </li>
-            )
-        } else {
+        if (this.props.user !== undefined) {
             return (
                 <li onClick={() => this.props.signout()}>
                     <a href="#signOut" >Sign Out</a>
                 </li>
             )
+        } else {
+            return null
         }
     }
 
     render() {
         return (
             <div className="img1" id="home">
+                <Log user={this.props.user} login={this.props.login} notRegistered={this.props.notRegistered} registerClick={this.props.registerClick} />
                 <ul className="menu">
                     <li>
                         <a href="#home">Home</a>
@@ -40,9 +38,7 @@ export default class Home extends React.Component {
                     <li>
                         <a href="#manage">Create & manage</a>
                     </li>
-                    <li>
-                        {this.renderSign()}
-                    </li>
+                    {this.renderSign()}
                 </ul>
             </div>
         )

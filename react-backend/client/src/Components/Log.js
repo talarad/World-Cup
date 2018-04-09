@@ -4,25 +4,49 @@ import React from 'react';
 export default class Log extends React.Component {
 
     renderLogin() {
+        console.log(this.props.notRegistered)
         if (this.props.user !== undefined) {
             return (
                 null
             )
+        } else if (this.props.notRegistered) {
+            return (
+                <span className="sign">
+                    <div className="log">User name:
+                        <input type="text" id='username' />
+                    </div>
+                    <div className="log">Password:
+                        <input type="password" id='password' />
+                    </div>
+                    <div className="log">
+                        <button id="logButton" onClick={() => this.props.login(document.getElementById('username').value, document.getElementById('password').value)}> Log in </button>
+                        <button id="register" onClick={() => this.props.registerClick()}> Not registered? </button>
+                    </div>
+                </span>
+            )
         } else {
             return (
-                <div className="img4" id="login">
-                    <span className="login">
-                        <div className="log">User name:
-                        <input type="text" id='username' />
+                <span className="sign">
+                    <div className="log">User name:
+            <input type="text" id='username' />
+                    </div>
+                    <div className="log">Password:
+            <input type="password" id='password' />
+                    </div>
+                    <div className="log">Email:
+            <input type="Email" id='email' />
+                    </div>
+                    <div className="log">First name:
+            <input type="text" id='firstname' />
+                        <div className="log">Last name:
+            <input type="text" id='lastname' />
                         </div>
-                        <div className="log">Password:
-                        <input type="password" id='password' />
-                        </div>
-                        <div className="log">
-                            <button onClick={() => this.props.login(document.getElementById('username').value, document.getElementById('password').value)}> Log in </button>
-                        </div>
-                    </span>
-                </div>
+                    </div>
+                    <div className="log">
+                        <button id="logButton" onClick={() => this.props.login(document.getElementById('username').value, document.getElementById('password').value)}> Register </button>
+                        <button id="register" onClick={() => this.props.registerClick()}> Already registered? </button>
+                    </div>
+                </span>
             )
         }
     }

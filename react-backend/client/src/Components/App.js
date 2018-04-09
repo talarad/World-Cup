@@ -5,7 +5,6 @@ import Scores from './Scores.js';
 import Manage from './Manage.js';
 import Teams from './Teams.js';
 import Games from './Games.js';
-import Log from './Log.js';
 import ServerMethods from './ServerMethods.js'
 
 export default class App extends React.Component {
@@ -17,8 +16,12 @@ export default class App extends React.Component {
     this.changeGroupView = this.changeGroupView.bind(this)
     this.updateBet = this.updateBet.bind(this);
     this.getgroup = this.getgroup.bind(this)
+    this.register = this.register.bind(this)
+    this.registerClick = this.registerClick.bind(this)
 
-    this.state = {};
+    this.state = {
+      notRegistered: true
+    };
   }
 
   login(usename, password) {
@@ -30,13 +33,14 @@ export default class App extends React.Component {
           loggedUser.groups = user.userGroups;
           user.user.groups = user.userGroups;
           state.user = loggedUser
+          state.notRegistered = false;
           this.setState(state);
         } else {
           alert("Wrong username or password")
         }
       })
   }
-  
+
   // componentDidMount() {
 
   // }
@@ -51,7 +55,8 @@ export default class App extends React.Component {
   }
 
   signout() {
-    this.setState({ user: undefined });
+    const notRegistered = true;
+    this.setState({ user: undefined, notRegistered });
   }
 
   changeGroupView(group) {
@@ -86,16 +91,24 @@ export default class App extends React.Component {
     }
   }
 
+  register() {
+    //...
+  }
+
+  registerClick() {
+    const notRegistered = !this.state.notRegistered
+    this.setState({notRegistered});
+  }
+
   render() {
     return (
       <div>
-        <Home signout={this.signout} user={this.state.user} />
+        <Home signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
         <About />
         <Scores changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
         <Games games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
         <Teams />
         <Manage />
-        <Log user={this.state.user} login={this.login} />
       </div>
     )
   }

@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body, html {
   height: 100%;
   margin: 0;
   font: 400 15px/1.8 "Lato", sans-serif;
   color: white;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .sign,
@@ -297,14 +300,24 @@ h3 {
 }
 
 .log, .login {
-  margin: 10px;
-  letter-spacing: 4px;
+  margin: 12px auto;
+  letter-spacing: 3px;
   color: white;
   text-transform: uppercase;
   text-decoration: none;
   font: 14px "Lato", sans-serif;
   text-shadow: -1px 0 black, 0 3px black, 3px 0 black, 0 -1px black;
   z-index: 12;
+}
+
+#username, #password, #logButton, #email, #firstname, #lastname {
+  margin: 1px auto;
+  float:right
+}
+
+#register {
+  margin: 1px auto;
+  float:left;
 }
 
 .border {
@@ -349,6 +362,7 @@ h3 {
   float: left;
   font-size: 22px;
   font-weight: 300;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   color: rgb(224, 224, 224);
   line-height: 1.8;
   min-height: 120px;
