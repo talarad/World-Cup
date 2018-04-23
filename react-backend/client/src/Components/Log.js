@@ -4,7 +4,6 @@ import React from 'react';
 export default class Log extends React.Component {
 
     renderLogin() {
-        console.log(this.props.notRegistered)
         if (this.props.user !== undefined) {
             return (
                 null
@@ -43,10 +42,12 @@ export default class Log extends React.Component {
                         </div>
                     </div>
                     <div className="log">
-                        <button id="logButton" onClick={() => this.props.login(document.getElementById('username').value, document.getElementById('password').value)}> Register </button>
+                        <button id="logButton" onClick={() => this.props.register(document.getElementById('username').value,
+                            document.getElementById('password').value, document.getElementById('email').value,
+                            document.getElementById('firstname').value, document.getElementById('lastname').value)}> Register </button>
                         <button id="register" onClick={() => this.props.registerClick()}> Already registered? </button>
                     </div>
-                </span>
+                </span >
             )
         }
     }

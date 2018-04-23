@@ -5,11 +5,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var indexRouter = require('./routes/site/index.js');
+var indexRouter = require('./routes/site');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+//firebase
+var firebase = require("firebase/app");
+require("firebase/auth");
+require("firebase/database");
+require("firebase/firestore");
+require("firebase/messaging");
+require("firebase/functions");
+
+// Leave out Storage
+//require("firebase/storage");
+
+var config = {
+  // ...
+};
+firebase.initializeApp(config);
+//firebase end
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

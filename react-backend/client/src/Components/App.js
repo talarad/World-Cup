@@ -3,7 +3,7 @@ import Home from './Home.js';
 import About from './About.js';
 import Scores from './Scores.js';
 import Manage from './Manage.js';
-import Teams from './Teams.js';
+import PastGames from './PastGames.js';
 import Games from './Games.js';
 import ServerMethods from './ServerMethods.js'
 
@@ -18,6 +18,9 @@ export default class App extends React.Component {
     this.getgroup = this.getgroup.bind(this)
     this.register = this.register.bind(this)
     this.registerClick = this.registerClick.bind(this)
+    this.addToGroup = this.addToGroup.bind(this);
+    this.createGroup = this.createGroup.bind(this);
+    this.leaveGroup = this.leaveGroup.bind(this);
 
     this.state = {
       notRegistered: true
@@ -26,14 +29,13 @@ export default class App extends React.Component {
 
   login(usename, password) {
     ServerMethods.getUser(usename, password)
-      .then(user => {
-        if (user.status) {
-          const state = { ...this.state }
-          const loggedUser = user.user;
-          loggedUser.groups = user.userGroups;
-          user.user.groups = user.userGroups;
-          state.user = loggedUser
+      .then(data => {
+        if (data.status) {
+          const loggedUser = data.user;
+          loggedUser.groups = data.userGroups;
+          const state = {};
           state.notRegistered = false;
+          state.user = loggedUser;
           this.setState(state);
         } else {
           alert("Wrong username or password")
@@ -41,22 +43,18 @@ export default class App extends React.Component {
       })
   }
 
-  // componentDidMount() {
-
-  // }
-
   componentWillMount() {
     ServerMethods.getData()
       .then(data => {
-        if (data.status) {
-          this.setState({ games: data.games })
+        if (data.status === true) {
+          this.setState({ games: data.games, scores: data.scores })
         }
       })
   }
 
   signout() {
     const notRegistered = true;
-    this.setState({ user: undefined, notRegistered });
+    this.setState({ user: undefined, notRegistered, groupToShow: null });
   }
 
   changeGroupView(group) {
@@ -76,14 +74,20 @@ export default class App extends React.Component {
     }
   }
 
-  updateBet(user, matchID, homeTeamScore, awayTeamScore) {
+
+
+  updateBet(user, matchID, awayTeamScore, homeTeamScore) {
     const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
     const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
     if (homeCheck && awayCheck) {
-      ServerMethods.bet(user, matchID, homeTeamScore, awayTeamScore)
+      ServerMethods.bet(user, matchID, awayTeamScore, homeTeamScore)
         .then(data => {
-          if (data.status) {
-            this.setState({ user: data.user })
+          if (data.status === true) {
+            const state = { ...this.state }
+            const loggedUser = data.user;
+            loggedUser.groups = data.userGroups;
+            state.user = loggedUser
+            this.setState(state);
           }
         })
     } else {
@@ -91,24 +95,96 @@ export default class App extends React.Component {
     }
   }
 
-  register() {
-    //...
+  register(username, password, email, firstName, lastName) {
+    ServerMethods.register(username, password, email, firstName, lastName)
+      .then(data => {
+        if (data.status === true) {
+          const state = { ...this.state }
+          const loggedUser = data.user;
+          loggedUser.groups = data.userGroups;
+          state.user = loggedUser
+          document.getElementById("username").value = '';
+          document.getElementById("password").value = '';
+          document.getElementById("email").value = '';
+          document.getElementById("firstname").value = '';
+          document.getElementById("lastname").value = '';
+
+          this.setState(state);
+        }
+      })
   }
 
   registerClick() {
     const notRegistered = !this.state.notRegistered
-    this.setState({notRegistered});
+    this.setState({ notRegistered });
+  }
+
+  addToGroup(user, friendUsername, groupID, inputID) {
+    ServerMethods.addToGroup(user, friendUsername, groupID)
+      .then(data => {
+        if (data.status === true) {
+          const state = { ...this.state }
+          const loggedUser = data.user;
+          loggedUser.groups = data.userGroups;
+          state.user = loggedUser
+          document.getElementById(inputID).value = '';
+          this.setState(state);
+          alert("Friend has been successfully added to group!")
+
+        } else if (data.status === 'tooMany') {
+          alert('Can\'t add friend since he has too many groups')
+        } else {
+          alert("Wrong username or friend is already in this group!")
+        }
+      })
+  }
+
+  createGroup(user, groupName) {
+    if (groupName.length > 0 && groupName.length < 15) {
+      ServerMethods.createGroup(user, groupName)
+        .then(data => {
+          if (data.status === true) {
+            const state = { ...this.state }
+            const loggedUser = data.user;
+            loggedUser.groups = data.userGroups;
+            state.user = loggedUser
+            this.setState(state);
+            document.getElementById("create").value = '';
+            alert("You have created a new group")
+          } else if (data.status === 'tooMany') {
+            alert("You can create up to 3 groups")
+          }
+        })
+    } else {
+      alert("Please enter a valid group name");
+    }
+  }
+
+  leaveGroup(user, groupID) {
+    ServerMethods.leaveGroup(user, groupID)
+      .then(data => {
+        if (data.status === true) {
+          const state = { ...this.state }
+          const loggedUser = data.user;
+          loggedUser.groups = data.userGroups;
+          loggedUser.groupToShow = null;
+          state.user = loggedUser
+
+          this.setState(state);
+          alert("You have left the group")
+        }
+      })
   }
 
   render() {
     return (
       <div>
-        <Home signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
+        <Home register={this.register} signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
         <About />
-        <Scores changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
+        <Scores leaveGroup={this.leaveGroup} changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
         <Games games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
-        <Teams />
-        <Manage />
+        <Manage user={this.state.user} addToGroup={this.addToGroup} createGroup={this.createGroup} />
+        <PastGames scores={this.state.scores} />
       </div>
     )
   }

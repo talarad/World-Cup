@@ -9,7 +9,13 @@ export default class Game extends React.Component {
             const gameID = this.props.game.id;
 
             let userBet;
-
+            if (this.props.ended) {
+                return (
+                    <span>
+                       {/* ... */}
+                    </span>
+                )
+            }
             Object.keys(user.bets).forEach(bet => {
                 if (user.bets[bet].id.toString() === gameID.toString()) {
                     userBet = user.bets[bet];
@@ -32,6 +38,12 @@ export default class Game extends React.Component {
                 )
             }
 
+        } else if (this.props.ended) {
+            return (
+                <span>
+                    {/* ... */}
+                </span>
+            )
         } else {
             return null
         }

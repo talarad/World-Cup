@@ -15,11 +15,26 @@ export default class Home extends React.Component {
         }
     }
 
+    renderHello() {
+        if (this.props.user) {
+            return (
+                <div className="hey">
+                    Hey, {this.props.user.firstName}
+                </div>
+            )
+        } else {
+            return null
+        }
+    }
+
     render() {
         return (
             <div className="img1" id="home">
-                <Log user={this.props.user} login={this.props.login} notRegistered={this.props.notRegistered} registerClick={this.props.registerClick} />
+                <Log register={this.props.register} user={this.props.user} login={this.props.login} notRegistered={this.props.notRegistered} registerClick={this.props.registerClick} />
                 <ul className="menu">
+
+                    {this.renderHello()}
+
                     <li>
                         <a href="#home">Home</a>
                     </li>
@@ -27,16 +42,16 @@ export default class Home extends React.Component {
                         <a href="#about">About</a>
                     </li>
                     <li>
-                        <a href="#teams">Teams</a>
-                    </li>
-                    <li>
-                        <a href="#games">Games</a>
-                    </li>
-                    <li>
                         <a href="#score">Score</a>
                     </li>
                     <li>
+                        <a href="#games">Bet games</a>
+                    </li>
+                    <li>
                         <a href="#manage">Create & manage</a>
+                    </li>
+                    <li>
+                        <a href="#past-games">Past matches</a>
                     </li>
                     {this.renderSign()}
                 </ul>

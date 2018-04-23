@@ -2,54 +2,60 @@ const User = require('./User.js');
 
 const users = []
 
-const user1 = new User('tal', '123456', 'Tal', 'Arad');
+const user1 = new User('tal', '123456', "email...", 'Tal', 'Arad');
 user1.joinGroup(0);
 user1.joinGroup(1);
 user1.joinGroup(2);
 
-user1.bets[856735] = {
-    id: "856735",
-    away: 3,
-    home: 1
-}
-
-const user2 = new User('omer', 123456, 'Omer', 'Prizner');
+const user2 = new User('omer', '123456', "email...", 'Omer', 'Prizner');
 user2.joinGroup(0);
 
-const user3 = new User('michael', 123456, 'Michael', 'Levi');
+const user3 = new User('michael', '123456', "email...", 'Michael', 'Levi');
 user3.joinGroup(0);
 
-const user4 = new User('itamar', 123456, 'Itamar', 'Fellus');
+const user4 = new User('itamar', '123456', "email...", 'Itamar', 'Fellus');
 user4.joinGroup(0);
 user4.joinGroup(2);
 
-const user5 = new User('dor', 123456, 'Dor', 'Lamay');
+const user5 = new User('dor', '123456', "email...", 'Dor', 'Lamay');
 user5.joinGroup(0);
 
-const user6 = new User('shiran', 123456, 'Shiran', 'Kushnir');
+const user6 = new User('shiran', '123456', "email...", 'Shiran', 'Kushnir');
 user6.joinGroup(0);
 user6.joinGroup(1);
 user6.joinGroup(2);
 
-const user7 = new User('ron', 123456, 'Ron', 'Arbib');
+const user7 = new User('ron', '123456', "email...", 'Ron', 'Arbib');
 user7.joinGroup(0);
 user7.joinGroup(1);
 
-const user8 = new User('iddo', 123456, 'Iddo', 'Kertes');
+const user8 = new User('iddo', '123456', "email...", 'Iddo', 'Kertes');
 user8.joinGroup(0);
 user8.joinGroup(2);
 
-const user9 = new User('shiri', 123456, 'Shiri', 'Ronen');
-user8.joinGroup(0);
-user8.joinGroup(2);
+const user9 = new User('shiri', '123456', "email...", 'Shiri', 'Ronen');
+user9.joinGroup(0);
+user9.joinGroup(2);
 
-const user10 = new User('nitzan', 123456, 'Nitzan', 'Hershkovitz');
-user8.joinGroup(0);
-user8.joinGroup(1);
+const user10 = new User('nitzan', '123456', "email...", 'Nitzan', 'Hershkovitz');
+user10.joinGroup(0);
+user10.joinGroup(1);
 
-const user11 = new User('shaked', 123456, 'Shaked', 'Keinan');
-user8.joinGroup(0);
-user8.joinGroup(2);
+const user11 = new User('shaked', '123456', "email...", 'Shaked', 'Keinan');
+user11.joinGroup(0);
+user11.joinGroup(2);
+
+user1.increaseScore(user1, 40);
+user2.increaseScore(user2, 20);
+user3.increaseScore(user3, 15);
+user4.increaseScore(user4, 25);
+user5.increaseScore(user5, 25);
+user6.increaseScore(user6, 40);
+user8.increaseScore(user8, 10);
+user7.increaseScore(user7, 50);
+user9.increaseScore(user9, 20);
+user10.increaseScore(user10, 20);
+user11.increaseScore(user11, 30);
 
 users.push(user1);
 users.push(user2);
@@ -62,6 +68,8 @@ users.push(user8);
 users.push(user9);
 users.push(user10);
 users.push(user11);
+
+
 
 
 module.exports = users;

@@ -18,20 +18,30 @@ export default class Scores extends React.Component {
         }
     }
 
-    renderTable(head, closestDate) {
-        if (this.props.user && this.props.user.groups) {
-            let rows = [head];
+    renderTable(gamesInSameDay, closestDate) {
+        if (this.props.user && this.props.user.groups && this.props.group) {
+           
+            let rows = [];
             let index = 0;
 
 
             this.props.group.members.forEach(member => {
                 rows.push(<GroupTable key={index} user={this.props.user} member={member} score={member.score}
-                    games={this.props.games} closestDate={closestDate} />);
+                    games={this.props.games} groupID={this.props.group.id} closestDate={closestDate} leaveGroup={this.props.leaveGroup} />);
                 index++;
             });
 
             return (
-                <tbody>{rows}</tbody>)
+                <table className="friends">
+                    <tbody>
+                        <tr key='tableHead'>
+                            <th>Name</th>
+                            <th colSpan={gamesInSameDay}>Next games</th>
+                            <th>Total Score</th>
+                        </tr>
+                        {rows}</tbody>
+                </table>
+            )
         } else {
             return (
                 <div className="caption">
@@ -57,7 +67,7 @@ export default class Scores extends React.Component {
             mm = '0' + mm
         }
 
-        today = mm + '-' + dd + '-' + yyyy;
+        today = yyyy + '-' + mm + '-' + dd;
         return today
     }
 
@@ -76,15 +86,8 @@ export default class Scores extends React.Component {
             }
         }
 
-        closestDate = "2018-06-15"
-        gamesInSameDay = 3;
-
-        // ??????????? key??
-        const head = <tr key={21214241}>
-            <th>Name</th>
-            <th colSpan={gamesInSameDay}>Next games</th>
-            <th>Total Score</th>
-        </tr>
+        // closestDate = "2018-06-15"
+        // gamesInSameDay = 3;
 
         return (
             <div className="img3" id="score">
@@ -93,9 +96,7 @@ export default class Scores extends React.Component {
                     {this.showGroups()}
                 </div>
                 <div className="group-table">
-                    <table className="friends">
-                        {this.renderTable(head, closestDate)}
-                    </table>
+                    {this.renderTable(gamesInSameDay, closestDate)}
                 </div>
             </div>
         )

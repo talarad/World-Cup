@@ -3,132 +3,187 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const fetch = require('node-fetch');
-
 const dataJson = require('./dataJson.js')
 const Users = require('./sample-users.js');
 const Groups = require('./sample-groups.js');
+const Group = require('./Group.js');
+const User = require('./User.js');
 
+const scores = [
+
+]
+const Bets = [];
 const pastGames = []
-//let serverData = updateData();
 
 router.get('/', function (req, res, next) {
-  //fetch('http://livescore-api.com/api-client/scores/live.json?key=VUNDFCPGYqp4nWzr&secret=UNa1DZ3uMUCslilgc8USLJzJaYOxVnZQ&country=55')
-  // fetch('http://api.football-data.org/v1/competitions/55/teams', {
-  //   headers: {
-  //     'X-Auth-Token': '1839ebb72e4f4a06a05ff72ea0918431'
-  //   }
 
-  let games = [];
-  // const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=793')
-  //   .then(data => data.json());
-  // const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=794')
-  //   .then(data => data.json());
-  // const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=795')
-  //   .then(data => data.json());
-  // const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=796')
-  //   .then(data => data.json());
-  // const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=797')
-  //   .then(data => data.json());
-  // const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=798')
-  //   .then(data => data.json());
-  // const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=799')
-  //   .then(data => data.json());
-  // const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=800')
-  //   .then(data => data.json());
-
-
-  // Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
-  //   .then(([...groups]) => {
-  //     groups.forEach(group => {
-  //       group.data.fixtures.forEach(game => {
-  //         games.push(game)
-  //       })
-  //     })
-  //   })
-  // .then(data => {
-
-  games = dataJson;
+  let games = dataJson;
   games.sort(function (a, b) {
     if (a.date <= b.date) return -1;
     if (a.date > b.date) return 1;
     return 0;
   })
-  // }).then(data => {
-  res.json({ status: true, games });
+  res.json({ status: true, games, scores });
 })
-// })
 
 router.post('/', function (req, res, next) {
   const { username, password } = req.body;
 
   const user = login(username, password)
   if (user) {
+   
+    currentUser = getCurrentUser(user);
+    updateUser(currentUser);
     const userGroups = getGroups(user);
-
-    res.json({ user, userGroups, status: true });
+    res.json({ user: currentUser, userGroups, status: true });
   } else {
     res.json({ status: false })
   }
 });
 
-router.post('/bet', function (req, res, next) {
-  const { user, matchID, homeTeamScore, awayTeamScore } = req.body;
+router.post('/register', function (req, res, next) {
+  const { username, password, email, firstName, lastName } = req.body;
 
-  user.bets[matchID] = {
-    id: matchID,
-    home: homeTeamScore,
-    away: awayTeamScore
-  }
+  const user = new User(username, password, email, firstName, lastName);
+  Users.push(user);
 
   res.json({ user, status: true });
+})
+
+router.post('/bet', function (req, res, next) {
+  const { user, matchID, awayTeamScore, homeTeamScore } = req.body;
+  const currentUser = getCurrentUser(user);
+
+  const bet = {
+    playerid: user.id,
+    id: matchID,
+    home: homeTeamScore,
+    away: awayTeamScore,
+    done: false
+  };
+
+  const betName = `${user.id}-${matchID}`;
+
+  Bets.push(bet);
+  currentUser.bets[matchID] = bet;
+  updatePoints()
+  updateUser(currentUser);
+
+  const userGroups = getGroups(currentUser);
+  res.json({ user: currentUser, userGroups, status: true });
 });
 
-module.exports = router;
+router.post('/addToGroup', function (req, res, next) {
+  const { user, friendUsername, groupID } = req.body;
+  const friend = Users.find(userFromUsers => { return userFromUsers.username === friendUsername })
+  const currentUser = getCurrentUser(user);
+  const currentGroup = getGroup(groupID);
+  let isAlreadyInGroup = false;
 
-// function updateData() {
-//   const games = [];
-//   setTimeout(() => {
-//     const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=793')
-//       .then(data => data.json());
-//     const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=794')
-//       .then(data => data.json());
-//     const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=795')
-//       .then(data => data.json());
-//     const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=796')
-//       .then(data => data.json());
-//     const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=797')
-//       .then(data => data.json());
-//     const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=798')
-//       .then(data => data.json());
-//     const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=799')
-//       .then(data => data.json());
-//     const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=800')
-//       .then(data => data.json());
+  if (friend) {
+    if (friend.groups.length >= 5) {
+      res.json({ status: "tooMany" });
+    } else {
+      isAlreadyInGroup = friend.groups.includes(groupID);
+      if (friend && currentGroup.admin === user.id && !isAlreadyInGroup) {
+        friend.groups.push(groupID);
+        currentGroup.addMember(friend)
+        updateUser(friend);
+        const userGroups = getGroups(currentUser);
+        res.json({ user: currentUser, userGroups, status: true });
+      } else {
+        res.json({ status: "something" });
+      }
+    }
+  } else {
+    res.json({ status: false });
+  }
+});
 
+router.post('/createGroup', function (req, res, next) {
+  const { user, groupName } = req.body;
+  const currentUser = getCurrentUser(user);
 
-//     Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
-//       .then(([...groups]) => {
-//         groups.forEach(group => {
-//           group.data.fixtures.forEach(game => {
-//             games.push(game)
-//           })
-//         })
-//       })
-//       .then(data => {
-//         games.sort(function (a, b) {
-//           if (a.date <= b.date) return -1;
-//           if (a.date > b.date) return 1;
-//           return 0;
-//         })
-//       })
-//       .then(result => {
-//         serverData = games;
-//       })
-//     updateData()
-//   }, 600000);
+  if (currentUser.adminAt.length >= 3) {
+    res.json({ status: 'tooMany' });
+  } else {
+    const group = new Group(groupName, currentUser.id)
+    currentUser.adminAt.push(group.id);
+    group.addMember(currentUser)
+    currentUser.joinGroup(group.id)
+    Groups.push(group);
+    updateUser(currentUser);
 
-//   return games;
-// }
+    const userGroups = getGroups(currentUser);
+    res.json({ user: currentUser, userGroups, status: true });
+  }
+})
+
+router.post('/leaveGroup', function (req, res, next) {
+  const { user, groupID } = req.body;
+  const currentUser = getCurrentUser(user);
+  const currentGroup = getGroup(groupID);
+
+  if (currentUser.adminAt.includes(currentGroup.id) && currentGroup.members.length > 0) {
+    if (currentGroup.members[0].id !== currentUser.id) {
+      currentGroup.admin = currentGroup.members[0].id;
+      const newAdmin = getUser(currentGroup, 0)
+      newAdmin.adminAt.push(currentGroup.id);
+      var index = currentUser.adminAt.indexOf(currentGroup.id);
+      currentUser.adminAt.splice(index, 1);
+    } else {
+      currentGroup.admin = currentGroup.members[1].id;
+      const newAdmin = getUser(currentGroup, currentUser.id);
+      newAdmin.adminAt.push(currentGroup.id);
+      currentUser.adminAt.splice(index, 1);
+      updateUser(newAdmin);
+    }
+  } else {
+    var index = currentUser.adminAt.indexOf(currentGroup.id);
+    currentUser.adminAt.splice(index, 1);
+  }
+
+  currentGroup.remove(currentUser)
+  removeGroupFromUser(currentUser, currentGroup);
+  updateUser(user);
+  updateGroup(currentGroup);
+
+  const userGroups = getGroups(currentUser);
+  res.json({ user: currentUser, userGroups, status: true });
+})
+
+function removeGroupFromUser(user, group) {
+  var index = user.groups.indexOf(group.id);
+  user.groups.splice(index, 1);
+}
+
+function updateUser(user) {
+  index = Users.indexOf(user);
+  Users[index] = user;
+}
+
+function updateGroup(group) {
+  index = Groups.indexOf(group);
+  Groups[index] = group;
+}
+
+function getUser(group, id) {
+  return Users.find(member => {
+    return member.id === group.members[id].id
+  })
+}
+
+function getGroup(groupID) {
+  return Groups.find(group => {
+    return group.id === groupID
+  })
+}
+
+function getCurrentUser(user) {
+  return Users.find(userFromUsers => {
+    return userFromUsers.id === user.id
+  })
+}
 
 function login(username, password) {
   const user = Users.find(user => {
@@ -150,7 +205,10 @@ function getGroups(user) {
 
     userGroup[grp] = {};
     userGroup[grp].name = Groups[group].name;
+    userGroup[grp].admin = Groups[group].admin;
+    userGroup[grp].id = Groups[group].id;
     Groups[group].members.forEach((friend, index) => {
+
       if (index === 0) {
         userGroup[grp].members = [];
       }
@@ -169,3 +227,42 @@ function getGroups(user) {
 
   return userGroup;
 }
+
+
+function updatePoints() {
+
+  const workingBets = [...Bets];
+
+  workingBets.forEach((bet, index) => {
+    const betUser = Users.find(user => {
+      return user.id === bet.playerid;
+    })
+
+    const game = scores.find((score, i) => {
+      return score.id.toString() === bet.id.toString();
+    })
+
+    if (game) {
+      if (bet.home.toString() === game.home.toString() && bet.away.toString() === game.away.toString()) {
+        betUser.score += 30;
+      } else if ((bet.home.toString() > bet.away.toString() && game.home.toString() > game.away.toString() ||
+        bet.home.toString() < bet.away.toString() && game.home.toString() < game.away.toString() ||
+        bet.home.toString() === bet.away.toString() && game.home.toString() === game.away.toString())) {
+        betUser.score += 10;
+      }
+
+      Bets.splice(index, 1);
+    }
+  })
+
+  Groups.forEach(group => {
+    group.members.forEach(member => {
+      const friendMember = Users.find(friend => {
+        return member.id === friend.id;
+      })
+      member.score = friendMember.score;
+    })
+  })
+
+}
+module.exports = router;

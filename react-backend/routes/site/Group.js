@@ -1,3 +1,4 @@
+
 let counter = 0
 
 class Group {
@@ -10,27 +11,27 @@ class Group {
 
     addMember(newMember) {
         const user = {
-            user: newMember,
-            score: 0,
+            firstName: newMember.firstName,
+            lastName: newMember.lastName,
+            bets: newMember.bets,
+            score: newMember.score,
             id: newMember.id
         }
 
         this.members.push(user);
-        return this.members;
-    }
-
-    increaseScore(userID, scoreToIncrease) {
-
-        for (let i = 0; i < this.members.length; i++) {
-            if (this.members[i].id === userID) {
-                this.members[i].score += scoreToIncrease;
-                break;
-            }
-        }
     }
 
     remove(user) {
-        // maybe in the furture
+        var index;
+        this.members.forEach((member, i) => {
+            if (user.id === member.id) {
+                index = i;
+            }
+        })
+
+        if (index > -1) {
+            this.members.splice(index, 1);
+        }
     }
 }
 
