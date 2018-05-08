@@ -11,23 +11,6 @@ var users = require('./routes/users');
 
 var app = express();
 
-//firebase
-var firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/database");
-require("firebase/firestore");
-require("firebase/messaging");
-require("firebase/functions");
-
-// Leave out Storage
-//require("firebase/storage");
-
-var config = {
-  // ...
-};
-firebase.initializeApp(config);
-//firebase end
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

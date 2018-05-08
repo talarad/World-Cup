@@ -86,8 +86,8 @@ export default class Scores extends React.Component {
             }
         }
 
-        // closestDate = "2018-06-15"
-        // gamesInSameDay = 3;
+        closestDate = "2018-06-15"
+        gamesInSameDay = 3;
 
         return (
             <div className="img3" id="score">

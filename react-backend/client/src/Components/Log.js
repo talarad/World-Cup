@@ -53,6 +53,7 @@ export default class Log extends React.Component {
     }
 
     render() {
+        
         return (
             <div>
                 {this.renderLogin()}

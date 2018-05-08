@@ -6,6 +6,8 @@ import Manage from './Manage.js';
 import PastGames from './PastGames.js';
 import Games from './Games.js';
 import ServerMethods from './ServerMethods.js'
+// import firebase from 'firebase'
+// import * as firebaseui from 'firebaseui'
 
 export default class App extends React.Component {
   constructor() {
@@ -177,6 +179,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
         <Home register={this.register} signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
