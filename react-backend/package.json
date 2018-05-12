@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start":  "SET PORT=3001 && node ./bin/www",
-    "start:prod": "node ./bin/www"
+    "start:prod": "node ./bin/www",
+    "build": "npm run build --prefix ./client/"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
