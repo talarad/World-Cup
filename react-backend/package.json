@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "SET PORT=3000 && node ./bin/www",
-    "start:prod": "node ./bin/www"
-    
+    "start": "SET PORT=3001 && node ./bin/www",
+    "start:prod": "node ./bin/www",
+    "init-client:prod": "(cd /client/ && npm i && npm run build)",
+    "postinstall": "npm run init-client:prod"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
