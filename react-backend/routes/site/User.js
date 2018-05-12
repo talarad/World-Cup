@@ -1,7 +1,5 @@
-let counter = 0;
-
 class User {
-    constructor(username, password, email, firstName, lastName) {
+    constructor(username, password, email, firstName, lastName, id) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -9,7 +7,7 @@ class User {
         this.lastName = lastName;
         this.score = 0;
         this.groups = [];
-        this.id = counter++;
+        this.id = id;
         this.bets = {}
         this.adminAt = []
     }

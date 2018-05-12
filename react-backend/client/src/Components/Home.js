@@ -1,14 +1,19 @@
 import React from 'react';
 import Log from './Log.js';
+import Clock from './Clock';
 
 export default class Home extends React.Component {
+
+
 
     renderSign() {
         if (this.props.user !== undefined) {
             return (
-                <li onClick={() => this.props.signout()}>
-                    <a href="#signOut" >Sign Out</a>
-                </li>
+                <div>
+                    <li onClick={() => this.props.signout()}>
+                        <a href="#signOut" >Sign Out</a>
+                    </li>
+                </div>
             )
         } else {
             return null
@@ -19,13 +24,15 @@ export default class Home extends React.Component {
         if (this.props.user) {
             return (
                 <div className="hey">
-                    Hey, {this.props.user.firstName}
+                    Hello,  {this.props.user.firstName}  <Clock />
                 </div>
             )
         } else {
             return null
         }
     }
+
+
 
     render() {
         return (
@@ -34,7 +41,6 @@ export default class Home extends React.Component {
                 <ul className="menu">
 
                     {this.renderHello()}
-
                     <li>
                         <a href="#home">Home</a>
                     </li>
@@ -55,7 +61,14 @@ export default class Home extends React.Component {
                     </li>
                     {this.renderSign()}
                 </ul>
+
+
+                <div className="local-scroll">
+                    <span className="scroll-down"><i className="scroll-down-icon"></i>Scroll Down</span>
+                </div>
+
             </div>
         )
     }
 }
+

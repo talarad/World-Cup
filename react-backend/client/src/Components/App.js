@@ -6,8 +6,7 @@ import Manage from './Manage.js';
 import PastGames from './PastGames.js';
 import Games from './Games.js';
 import ServerMethods from './ServerMethods.js'
-// import firebase from 'firebase'
-// import * as firebaseui from 'firebaseui'
+import AdminPanel from './AdminPanel'
 
 export default class App extends React.Component {
   constructor() {
@@ -23,6 +22,8 @@ export default class App extends React.Component {
     this.addToGroup = this.addToGroup.bind(this);
     this.createGroup = this.createGroup.bind(this);
     this.leaveGroup = this.leaveGroup.bind(this);
+    this.renderAdmin = this.renderAdmin.bind(this);
+    this.placeScore = this.placeScore.bind(this);
 
     this.state = {
       notRegistered: true
@@ -38,6 +39,7 @@ export default class App extends React.Component {
           const state = {};
           state.notRegistered = false;
           state.user = loggedUser;
+          state.scores = data.scoredGames;
           this.setState(state);
         } else {
           alert("Wrong username or password")
@@ -49,7 +51,7 @@ export default class App extends React.Component {
     ServerMethods.getData()
       .then(data => {
         if (data.status === true) {
-          this.setState({ games: data.games, scores: data.scores })
+          this.setState({ games: data.games, scores: data.scoredGames })
         }
       })
   }
@@ -76,8 +78,6 @@ export default class App extends React.Component {
     }
   }
 
-
-
   updateBet(user, matchID, awayTeamScore, homeTeamScore) {
     const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
     const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
@@ -89,6 +89,7 @@ export default class App extends React.Component {
             const loggedUser = data.user;
             loggedUser.groups = data.userGroups;
             state.user = loggedUser
+            state.scores = data.scoredGames;
             this.setState(state);
           }
         })
@@ -110,7 +111,7 @@ export default class App extends React.Component {
           document.getElementById("email").value = '';
           document.getElementById("firstname").value = '';
           document.getElementById("lastname").value = '';
-
+          state.scores = data.scoredGames;
           this.setState(state);
         }
       })
@@ -129,6 +130,7 @@ export default class App extends React.Component {
           const loggedUser = data.user;
           loggedUser.groups = data.userGroups;
           state.user = loggedUser
+          state.scores = data.scoredGames;
           document.getElementById(inputID).value = '';
           this.setState(state);
           alert("Friend has been successfully added to group!")
@@ -149,7 +151,8 @@ export default class App extends React.Component {
             const state = { ...this.state }
             const loggedUser = data.user;
             loggedUser.groups = data.userGroups;
-            state.user = loggedUser
+            state.user = loggedUser;
+            state.scores = data.scoredGames;
             this.setState(state);
             document.getElementById("create").value = '';
             alert("You have created a new group")
@@ -171,15 +174,41 @@ export default class App extends React.Component {
           loggedUser.groups = data.userGroups;
           loggedUser.groupToShow = null;
           state.user = loggedUser
-
+          state.scores = data.scoredGames;
           this.setState(state);
           alert("You have left the group")
         }
       })
   }
 
+  placeScore(user, game, awayTeamScore, homeTeamScore) {
+    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
+    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
+    if (homeCheck && awayCheck && user.username === 'tal') {
+      ServerMethods.placeScore(user, game, awayTeamScore, homeTeamScore)
+        .then(data => {
+          if (data.status === true) {
+            const state = { ...this.state }
+            const loggedUser = data.user;
+            loggedUser.groups = data.userGroups;
+            state.user = loggedUser;
+            state.scores = data.scoredGames;
+            this.setState(state);
+          }
+        })
+    } else {
+      alert("Please enter valid values");
+    }
+  }
+
+  renderAdmin() {
+    if (this.state.user && this.state.user.username === 'tal') {
+      return <AdminPanel games={this.state.games} user={this.state.user} placeScore={this.placeScore} />
+    }
+  }
+
   render() {
-    
+
     return (
       <div>
         <Home register={this.register} signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
@@ -187,7 +216,8 @@ export default class App extends React.Component {
         <Scores leaveGroup={this.leaveGroup} changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
         <Games games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
         <Manage user={this.state.user} addToGroup={this.addToGroup} createGroup={this.createGroup} />
-        <PastGames scores={this.state.scores} />
+        <PastGames games={this.state.games} scores={this.state.scores} />
+        {this.renderAdmin()}
       </div>
     )
   }

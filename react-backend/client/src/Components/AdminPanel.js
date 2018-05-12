@@ -1,7 +1,7 @@
 import React from 'react';
-import Game from './Game'
+import AdminGame from './AdminGame'
 
-export default class Games extends React.Component {
+export default class AdminPanel extends React.Component {
 
     getCurrentDate() {
         var today = new Date();
@@ -35,14 +35,12 @@ export default class Games extends React.Component {
                 break;
             }
         }
-
-        let counter = 0;
-
+        
         return (
             this.props.games.map((game, index) => {
-                if (game.date === date && counter < 5) {
-                    counter++;
-                    return (<Game today={today} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
+                
+                if (game.date <= date) {
+                    return (<AdminGame placeScore={this.props.placeScore} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
 
                 }
                 return null;
@@ -50,14 +48,14 @@ export default class Games extends React.Component {
     }
 
     render() {
-
         return (
-            <div className="regular" id="games">
+            <div className="regular2" id="past-games">
                 <div className="border">
-                    <p className="desc3">Bet some future games scores</p>
+                    <p className="desc3">Admin Panel</p>
                     {this.renderGames()}
                 </div>
             </div>
         )
+
     }
 }

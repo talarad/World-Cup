@@ -1,4 +1,4 @@
-const Users = require('./sample-users.js');
+const Users = require('./sample-users.js').users;
 const Group = require('./Group.js');
 
 const group1 = new Group("Adir", Users[0].id)

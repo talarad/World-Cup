@@ -20,15 +20,12 @@ export default class Scores extends React.Component {
 
     renderTable(gamesInSameDay, closestDate) {
         if (this.props.user && this.props.user.groups && this.props.group) {
-           
             let rows = [];
-            let index = 0;
 
-
-            this.props.group.members.forEach(member => {
-                rows.push(<GroupTable key={index} user={this.props.user} member={member} score={member.score}
+            this.props.group.members.forEach((member, index) => {
+                
+                rows.push(<GroupTable key={index} user={this.props.user} gamesInSameDay={gamesInSameDay} member={member} score={member.score}
                     games={this.props.games} groupID={this.props.group.id} closestDate={closestDate} leaveGroup={this.props.leaveGroup} />);
-                index++;
             });
 
             return (
@@ -47,7 +44,6 @@ export default class Scores extends React.Component {
                 <div className="caption">
                     <span className="border">Log in and join a group first</span>
                 </div>
-
             );
         }
     }
@@ -85,9 +81,9 @@ export default class Scores extends React.Component {
                 gamesInSameDay++;
             }
         }
-
-        closestDate = "2018-06-15"
-        gamesInSameDay = 3;
+        
+         //closestDate = "2018-05-13"
+         //gamesInSameDay = 1;
 
         return (
             <div className="img3" id="score">

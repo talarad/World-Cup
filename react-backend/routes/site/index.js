@@ -4,54 +4,78 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const fetch = require('node-fetch');
 const dataJson = require('./dataJson.js')
-const Users = require('./sample-users.js');
-const Groups = require('./sample-groups.js');
+let Users = require('./sample-users').users;
+let Groups = require('./sample-groups');
+let counter = 0;
 const Group = require('./Group.js');
 const User = require('./User.js');
 
-import firebase from 'firebase/app';
-import auto from "firebase/auth";
-import db from 'firebase/database'
+const firebase = require('../../Fire');
+const auto = require("firebase/auth");
+const db = require('firebase/database');
 
-// Import Admin SDK
-var admin = require("firebase-admin");
-
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyDLcs81oQQJ9GnAAOFNHW5oqA5pNC5IDWg",
-  authDomain: "world-cup-64771.firebaseapp.com",
-  databaseURL: "https://world-cup-64771.firebaseio.com",
-  projectId: "world-cup-64771",
-  storageBucket: "world-cup-64771.appspot.com",
-  messagingSenderId: "678224116968"
-};
-firebase.initializeApp(config);
 var database = firebase.database();
 
-function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture: imageUrl
-  });
-}
+let scores = []
+let Bets = [];
+let scoredGames = []
+
+// firebase.database().ref('Users/').set(Users);
+// firebase.database().ref('Groups/').set(Groups);
+// firebase.database().ref('Bets/').set(Bets);
+// firebase.database().ref('scoredGames/').set(scoredGames);
+// firebase.database().ref('counter/').set(counter);
+// firebase.database().ref('scores/').set(scores);
+
+var firebaseUsers = firebase.database().ref('Users/');
+firebaseUsers.on("value", function (snapshot) {
+  Users = snapshot.val();
+})
 
 
-const scores = [
+var firebaseGroups = firebase.database().ref('Groups/');
+firebaseGroups.on("value", function (snapshot) {
+  Groups = snapshot.val();
+})
 
-]
-const Bets = [];
-const pastGames = []
+var firebaseScores = firebase.database().ref('scores');
+firebaseScores.on("value", function (snapshot) {
+  scores = snapshot.val() || [];
+})
+
+
+var firebaseBets = firebase.database().ref('Bets');
+firebaseBets.on("value", function (snapshot) {
+  Bets = snapshot.val() || [];
+})
+
+
+var firebaseScoredGames = firebase.database().ref('scoredGames');
+firebaseScoredGames.on("value", function (snapshot) {
+  scoredGames = snapshot.val() || [];
+})
+
+
+var firebasecounter = firebase.database().ref('Counter');
+firebasecounter.on("value", function (snapshot) {
+  counter = snapshot.val() || [];
+})
+
+
+// var firebasescores = firebase.database().ref('scores');
+// firebasescores.on("value", function (snapshot) {
+//   scores = snapshot.val() || [];
+// })
+
 
 router.get('/', function (req, res, next) {
-
   let games = dataJson;
   games.sort(function (a, b) {
     if (a.date <= b.date) return -1;
     if (a.date > b.date) return 1;
     return 0;
   })
-  res.json({ status: true, games, scores });
+  res.json({ status: true, games, scoredGames});
 })
 
 router.post('/', function (req, res, next) {
@@ -61,9 +85,14 @@ router.post('/', function (req, res, next) {
   if (user) {
 
     currentUser = getCurrentUser(user);
+
+    if (currentUser.username === 'tal') {
+      currentUser.scoredGames = scoredGames;
+    }
+
     updateUser(currentUser);
     const userGroups = getGroups(user);
-    res.json({ user: currentUser, userGroups, status: true });
+    res.json({ user: currentUser, userGroups, status: true, scoredGames });
   } else {
     res.json({ status: false })
   }
@@ -72,11 +101,47 @@ router.post('/', function (req, res, next) {
 router.post('/register', function (req, res, next) {
   const { username, password, email, firstName, lastName } = req.body;
 
-  const user = new User(username, password, email, firstName, lastName);
+  const user = new User(username, password, email, firstName, lastName, counter++);
   Users.push(user);
+  firebase.database().ref('Users/').set(Users);
 
-  res.json({ user, status: true });
+  res.json({ user, status: true, scoredGames });
 })
+
+
+router.post('/placeScore', function (req, res, next) {
+  const { user, game, awayTeamScore, homeTeamScore } = req.body;
+  const currentUser = getCurrentUser(user);
+
+  const currentGame = {
+    id: game.id,
+    homeName: game.home_name,
+    date: game.date,
+    awayName: game.away_name,
+    home: homeTeamScore,
+    away: awayTeamScore,
+    done: true
+  };
+
+  scores.push(currentGame);
+  scoredGames.push(currentGame)
+  updatePoints(currentGame)
+
+  firebase.database().ref('scoredGames').set(scoredGames);
+
+  if (currentUser.username === 'tal') {
+    currentUser.scoredGames = scoredGames;
+  }
+
+  updateUser(currentUser);
+
+  firebase.database().ref('Users').set(Users);
+  firebase.database().ref('Groups').set(Groups);
+
+  const userGroups = getGroups(currentUser);
+  res.json({ user: currentUser, userGroups, status: true, scoredGames });
+});
+
 
 router.post('/bet', function (req, res, next) {
   const { user, matchID, awayTeamScore, homeTeamScore } = req.body;
@@ -93,12 +158,18 @@ router.post('/bet', function (req, res, next) {
   const betName = `${user.id}-${matchID}`;
 
   Bets.push(bet);
+  firebase.database().ref('Bets').set(Bets);
+
   currentUser.bets[matchID] = bet;
-  updatePoints()
+  updateBet(currentUser, bet, matchID)
+
   updateUser(currentUser);
 
+  firebase.database().ref('Users').set(Users);
+  firebase.database().ref('Groups').set(Groups);
+
   const userGroups = getGroups(currentUser);
-  res.json({ user: currentUser, userGroups, status: true });
+  res.json({ user: currentUser, userGroups, status: true, scoredGames });
 });
 
 router.post('/addToGroup', function (req, res, next) {
@@ -115,10 +186,14 @@ router.post('/addToGroup', function (req, res, next) {
       isAlreadyInGroup = friend.groups.includes(groupID);
       if (friend && currentGroup.admin === user.id && !isAlreadyInGroup) {
         friend.groups.push(groupID);
-        currentGroup.addMember(friend)
+        addMember(currentGroup, friend)
         updateUser(friend);
+
+        firebase.database().ref('Users').set(Users);
+        firebase.database().ref('Groups').set(Groups);
+
         const userGroups = getGroups(currentUser);
-        res.json({ user: currentUser, userGroups, status: true });
+        res.json({ user: currentUser, userGroups, status: true, scoredGames });
       } else {
         res.json({ status: "something" });
       }
@@ -138,12 +213,15 @@ router.post('/createGroup', function (req, res, next) {
     const group = new Group(groupName, currentUser.id)
     currentUser.adminAt.push(group.id);
     group.addMember(currentUser)
-    currentUser.joinGroup(group.id)
+    joinGroup(currentUser, group.id)
     Groups.push(group);
     updateUser(currentUser);
 
+    firebase.database().ref('Users').set(Users);
+    firebase.database().ref('Groups').set(Groups);
+
     const userGroups = getGroups(currentUser);
-    res.json({ user: currentUser, userGroups, status: true });
+    res.json({ user: currentUser, userGroups, status: true, scoredGames });
   }
 })
 
@@ -152,7 +230,7 @@ router.post('/leaveGroup', function (req, res, next) {
   const currentUser = getCurrentUser(user);
   const currentGroup = getGroup(groupID);
 
-  if (currentUser.adminAt.includes(currentGroup.id) && currentGroup.members.length > 0) {
+  if (currentUser.adminAt.includes(currentGroup.id) && currentGroup.members.length > 1) {
     if (currentGroup.members[0].id !== currentUser.id) {
       currentGroup.admin = currentGroup.members[0].id;
       const newAdmin = getUser(currentGroup, 0)
@@ -171,13 +249,16 @@ router.post('/leaveGroup', function (req, res, next) {
     currentUser.adminAt.splice(index, 1);
   }
 
-  currentGroup.remove(currentUser)
+  removeUserFromGroup(currentUser, currentGroup);
   removeGroupFromUser(currentUser, currentGroup);
   updateUser(user);
   updateGroup(currentGroup);
 
+  firebase.database().ref('Users').set(Users);
+  firebase.database().ref('Groups').set(Groups);
+
   const userGroups = getGroups(currentUser);
-  res.json({ user: currentUser, userGroups, status: true });
+  res.json({ user: currentUser, userGroups, status: true, scoredGames });
 })
 
 function removeGroupFromUser(user, group) {
@@ -186,13 +267,23 @@ function removeGroupFromUser(user, group) {
 }
 
 function updateUser(user) {
-  index = Users.indexOf(user);
-  Users[index] = user;
+  let index;
+  index = Users.indexOf(member => {
+    return user.id === member.id
+  })
+
+  if (index > -1) {
+    Users[index] = user;
+  }
 }
 
 function updateGroup(group) {
-  index = Groups.indexOf(group);
+  let index = Groups.indexOf(group);
   Groups[index] = group;
+}
+
+function joinGroup(user, groupID) {
+  user.groups.push(groupID);
 }
 
 function getUser(group, id) {
@@ -202,14 +293,64 @@ function getUser(group, id) {
 }
 
 function getGroup(groupID) {
-  return Groups.find(group => {
+  const currentGroup = Groups.find(group => {
     return group.id === groupID
   })
+
+  if (!currentGroup.members) {
+    currentGroup.members = [];
+  }
+
+  return currentGroup;
 }
 
 function getCurrentUser(user) {
-  return Users.find(userFromUsers => {
+  const currentUser = Users.find(userFromUsers => {
     return userFromUsers.id === user.id
+  });
+
+  if (!currentUser.bets) {
+    currentUser.bets = {};
+  }
+
+  if (!currentUser.groups) {
+    currentUser.groups = [];
+  }
+
+  if (!currentUser.adminAt) {
+    currentUser.adminAt = [];
+  }
+
+  return currentUser;
+}
+
+
+function addMember(group, newMember) {
+  const user = {
+    firstName: newMember.firstName,
+    lastName: newMember.lastName,
+    bets: newMember.bets || {},
+    score: newMember.score,
+    id: newMember.id
+  }
+
+  group.members.push(user);
+}
+
+function updateBet(currentUser, bet, matchID) {
+  Groups.forEach(group => {
+    currentUser.groups.forEach(userGroup => {
+      if (group.id === userGroup) {
+        group.members.forEach(member => {
+          if (member.id === currentUser.id) {
+            if (!member.bets) {
+              member.bets = {};
+            }
+            member.bets[matchID] = bet;
+          }
+        })
+      }
+    })
   })
 }
 
@@ -257,20 +398,16 @@ function getGroups(user) {
 }
 
 
-function updatePoints() {
+function updatePoints(game) {
 
-  const workingBets = [...Bets];
+  const workingBets = [...Bets] || [];
 
   workingBets.forEach((bet, index) => {
     const betUser = Users.find(user => {
       return user.id === bet.playerid;
     })
 
-    const game = scores.find((score, i) => {
-      return score.id.toString() === bet.id.toString();
-    })
-
-    if (game) {
+    if (bet.id === game.id) {
       if (bet.home.toString() === game.home.toString() && bet.away.toString() === game.away.toString()) {
         betUser.score += 30;
       } else if ((bet.home.toString() > bet.away.toString() && game.home.toString() > game.away.toString() ||
@@ -278,9 +415,9 @@ function updatePoints() {
         bet.home.toString() === bet.away.toString() && game.home.toString() === game.away.toString())) {
         betUser.score += 10;
       }
-
-      Bets.splice(index, 1);
     }
+
+    Bets.splice(index, 1);
   })
 
   Groups.forEach(group => {
@@ -292,5 +429,26 @@ function updatePoints() {
     })
   })
 
+  firebase.database().ref('Users').set(Users);
+  firebase.database().ref('Groups').set(Groups);
+  firebase.database().ref('Bets').set(Bets);
 }
+
+
+function removeUserFromGroup(user, group) {
+  var index;
+  group.members.forEach((member, i) => {
+    if (user.id === member.id) {
+      index = i;
+    }
+  })
+
+  if (index > -1) {
+    group.members.splice(index, 1);
+  }
+
+  return group;
+}
+
+
 module.exports = router;
