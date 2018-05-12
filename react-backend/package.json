@@ -5,7 +5,8 @@
   "scripts": {
     "start":  "SET PORT=3001 && node ./bin/www",
     "start:prod": "node ./bin/www",
-    "init-client:prod": "(cd ./client/ && npm i && npm run build)"
+    "init-client:prod": "(cd ./client/ && npm i && npm run build)",
+    "postinstall": "npm run init-client:prod"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
