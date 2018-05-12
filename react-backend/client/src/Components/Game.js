@@ -60,7 +60,7 @@ export default class Game extends React.Component {
                             My bet:  {userBet.away} - {userBet.home}
                             <br />
                             Bets finished
-                        </span >
+                            </span >
                     )
                 }
             }
