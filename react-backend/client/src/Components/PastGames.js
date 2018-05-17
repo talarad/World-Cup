@@ -41,7 +41,7 @@ export default class PastGames extends React.Component {
 
         return (
             <div className="regular2" id="past-games">
-                <div className="border">
+                <div className="borderScores">
                     <p className="desc3">Past matches scores:</p>
                     {this.renderGames()}
                 </div>

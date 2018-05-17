@@ -145,7 +145,7 @@ const data = [
     },
     {
         "id": "856729",
-        "date": "2018-05-16",
+        "date": "2018-05-15",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "France",
@@ -193,7 +193,7 @@ const data = [
     },
     {
         "id": "856733",
-        "date": "2018-05-16",
+        "date": "2018-05-15",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "Denmark",
@@ -205,7 +205,7 @@ const data = [
     },
     {
         "id": "856734",
-        "date": "2018-05-16",
+        "date": "2018-05-15",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "Australia",
@@ -217,7 +217,7 @@ const data = [
     },
     {
         "id": "856747",
-        "date": "2018-05-16",
+        "date": "2018-05-15",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "Argentina",
@@ -289,7 +289,7 @@ const data = [
     },
     {
         "id": "856753",
-        "date": "2018-05-17",
+        "date": "2018-05-19",
         "time": "17:00:00",
         "round": "GS",
         "home_name": "Costa Rica",
@@ -337,7 +337,7 @@ const data = [
     },
     {
         "id": "856757",
-        "date": "2018-05-17",
+        "date": "2018-05-19",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "Serbia",
@@ -349,7 +349,7 @@ const data = [
     },
     {
         "id": "856758",
-        "date": "2018-05-17",
+        "date": "2018-05-19",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "Switzerland",
@@ -361,7 +361,7 @@ const data = [
     },
     {
         "id": "856723",
-        "date": "2018-05-17",
+        "date": "2018-05-19",
         "time": "18:00:00",
         "round": "GS",
         "home_name": "Germany",

@@ -1,11 +1,10 @@
 import React from 'react';
 
-
 export default class Game extends React.Component {
 
     renderBetButton() {
         if (this.props.user) {
-            const { user } = this.props;
+            const { user, time } = this.props;
             const gameID = this.props.game.id;
 
             let userBet;
@@ -24,17 +23,9 @@ export default class Game extends React.Component {
                 })
             }
 
-            var date = new Date();
-            var minutes = date.getMinutes()
-            if (minutes < 10) {
-                minutes = '0' + minutes
-            }
-            //console.log(hour < this.props.game.time)
-            var hour = date.getHours() + ':' + minutes;
-            //var hour = `${date.getHours()}:00:00`;
-
             let gameTime = this.props.game.time.substring(0, 5);
-            if ((this.props.today <= this.props.game.date && hour < gameTime) || (this.props.game.date === this.props.today && hour < gameTime)) {
+
+            if ((this.props.today <= this.props.game.date && time < gameTime) || (this.props.game.date === this.props.today && time < gameTime)) {
                 if (userBet === null || userBet === undefined) {
                     return (
                         <span>

@@ -24,7 +24,7 @@ export default class Home extends React.Component {
         if (this.props.user) {
             return (
                 <div className="hey">
-                    Hello,  {this.props.user.firstName}  <Clock />
+                    Hello,  {this.props.user.firstName}  <Clock updateTime={this.props.updateTime} />
                 </div>
             )
         } else {

@@ -6,10 +6,15 @@ export default class Clock extends React.Component {
         this.state = { time: new Date() }; // initialise the state
     }
 
-    componentDidMount() { // create the interval once component is mounted
-        this.update = setInterval(() => {
-            this.setState({ time: new Date() });
-        }, 1 * 1000); // every 1 seconds
+    componentWillMount() { // create the interval once component is mounted
+        console.log()
+        this.updateMain = setInterval(() => {
+            this.update = setInterval(() => {
+                this.setState({ time: new Date() });
+            }, 1 * 1000); // every 1 seconds
+            
+            this.props.updateTime(this.state.time.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }))
+        }, 60000);
     }
 
     componentWillUnmount() { // delete the interval just before component is removed
@@ -21,7 +26,7 @@ export default class Clock extends React.Component {
 
         return (<span id="clock">
             {/* print the string prettily */}
-            {time.toLocaleTimeString()}
+            {time.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })}
         </span>);
     }
 }

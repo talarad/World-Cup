@@ -42,7 +42,7 @@ export default class Games extends React.Component {
             this.props.games.map((game, index) => {
                 if (game.date === date && counter < 5) {
                     counter++;
-                    return (<Game today={today} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
+                    return (<Game time={this.props.time} today={today} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
 
                 }
                 return null;
@@ -53,7 +53,7 @@ export default class Games extends React.Component {
 
         return (
             <div className="regular" id="games">
-                <div className="border">
+                <div className="borderScores">
                     <p className="desc3">Bet some future games scores</p>
                     {this.renderGames()}
                 </div>

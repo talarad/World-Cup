@@ -75,7 +75,7 @@ router.get('/', function (req, res, next) {
     if (a.date > b.date) return 1;
     return 0;
   })
-  res.json({ status: true, games, scoredGames});
+  res.json({ status: true, games, scoredGames });
 })
 
 router.post('/', function (req, res, next) {
@@ -179,7 +179,7 @@ router.post('/addToGroup', function (req, res, next) {
   const currentGroup = getGroup(groupID);
   let isAlreadyInGroup = false;
 
-  if (friend) {
+  if (friend && friend !== -1) {
     if (friend.groups.length >= 5) {
       res.json({ status: "tooMany" });
     } else {
@@ -251,7 +251,7 @@ router.post('/leaveGroup', function (req, res, next) {
 
   removeUserFromGroup(currentUser, currentGroup);
   removeGroupFromUser(currentUser, currentGroup);
-  updateUser(user);
+  updateUser(currentUser);
   updateGroup(currentGroup);
 
   firebase.database().ref('Users').set(Users);
@@ -279,7 +279,11 @@ function updateUser(user) {
 
 function updateGroup(group) {
   let index = Groups.indexOf(group);
-  Groups[index] = group;
+  if (Groups[index].members.length === 0) {
+    Groups.splice(index, 1);
+  } else {
+    Groups[index] = group;
+  }
 }
 
 function joinGroup(user, groupID) {
@@ -294,7 +298,8 @@ function getUser(group, id) {
 
 function getGroup(groupID) {
   const currentGroup = Groups.find(group => {
-    return group.id === groupID
+    if (group)
+      return group.id === groupID
   })
 
   if (!currentGroup.members) {
@@ -370,20 +375,22 @@ function getGroups(user) {
   let userGroup = {}
 
   user.groups.forEach((group, groupIdx) => {
+
     const grp = `group${groupIdx}`;
+    if (Groups[group]) {
+      userGroup[grp] = {};
+      userGroup[grp].name = Groups[group].name;
+      userGroup[grp].admin = Groups[group].admin;
+      userGroup[grp].id = Groups[group].id;
+      Groups[group].members.forEach((friend, index) => {
 
-    userGroup[grp] = {};
-    userGroup[grp].name = Groups[group].name;
-    userGroup[grp].admin = Groups[group].admin;
-    userGroup[grp].id = Groups[group].id;
-    Groups[group].members.forEach((friend, index) => {
+        if (index === 0) {
+          userGroup[grp].members = [];
+        }
 
-      if (index === 0) {
-        userGroup[grp].members = [];
-      }
-
-      userGroup[grp].members.push(friend);
-    })
+        userGroup[grp].members.push(friend);
+      })
+    }
   })
 
   Object.keys(userGroup).map(group => {
@@ -397,7 +404,6 @@ function getGroups(user) {
   return userGroup;
 }
 
-
 function updatePoints(game) {
 
   const workingBets = [...Bets] || [];
@@ -410,9 +416,9 @@ function updatePoints(game) {
     if (bet.id === game.id) {
       if (bet.home.toString() === game.home.toString() && bet.away.toString() === game.away.toString()) {
         betUser.score += 30;
-      } else if ((bet.home.toString() > bet.away.toString() && game.home.toString() > game.away.toString() ||
-        bet.home.toString() < bet.away.toString() && game.home.toString() < game.away.toString() ||
-        bet.home.toString() === bet.away.toString() && game.home.toString() === game.away.toString())) {
+      } else if ((bet.home.toString() > bet.away.toString() && game.home.toString() > game.away.toString()) ||
+        (bet.home.toString() < bet.away.toString() && game.home.toString() < game.away.toString()) ||
+        (bet.home.toString() === bet.away.toString() && game.home.toString() === game.away.toString())) {
         betUser.score += 10;
       }
     }

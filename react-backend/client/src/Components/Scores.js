@@ -42,7 +42,7 @@ export default class Scores extends React.Component {
         } else {
             return (
                 <div className="caption">
-                    <span className="border">Log in and join a group first</span>
+                    <span className="borderScores">Log in and join a group first</span>
                 </div>
             );
         }

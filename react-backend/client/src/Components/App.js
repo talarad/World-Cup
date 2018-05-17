@@ -7,6 +7,8 @@ import PastGames from './PastGames.js';
 import Games from './Games.js';
 import ServerMethods from './ServerMethods.js'
 import AdminPanel from './AdminPanel'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export default class App extends React.Component {
   constructor() {
@@ -24,9 +26,17 @@ export default class App extends React.Component {
     this.leaveGroup = this.leaveGroup.bind(this);
     this.renderAdmin = this.renderAdmin.bind(this);
     this.placeScore = this.placeScore.bind(this);
+    this.updateTime = this.updateTime.bind(this);
+    this.alertBox = this.alertBox.bind(this);
+
+    let time = new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })
+    if (time.length === 4) {
+      time = `0${time}`;
+    }
 
     this.state = {
-      notRegistered: true
+      notRegistered: true,
+      time
     };
   }
 
@@ -42,8 +52,9 @@ export default class App extends React.Component {
           state.scores = data.scoredGames;
           this.setState(state);
         } else {
-          alert("Wrong username or password")
+          this.alertBox('Wrong username or password', 'Please try again')
         }
+
       })
   }
 
@@ -94,7 +105,7 @@ export default class App extends React.Component {
           }
         })
     } else {
-      alert("Please enter valid values");
+      this.alertBox('Please enter valid values')
     }
   }
 
@@ -133,12 +144,13 @@ export default class App extends React.Component {
           state.scores = data.scoredGames;
           document.getElementById(inputID).value = '';
           this.setState(state);
-          alert("Friend has been successfully added to group!")
+          this.alertBox('Friend has been successfully added to group!')
 
         } else if (data.status === 'tooMany') {
-          alert('Can\'t add friend since he has too many groups')
+          this.alertBox("Can't add friend since he's in too many groups")
+
         } else {
-          alert("Wrong username or friend is already in this group!")
+          this.alertBox('Wrong username or friend is already in this group!')
         }
       })
   }
@@ -155,30 +167,62 @@ export default class App extends React.Component {
             state.scores = data.scoredGames;
             this.setState(state);
             document.getElementById("create").value = '';
-            alert("You have created a new group")
+            this.alertBox('You have created a new group')
           } else if (data.status === 'tooMany') {
-            alert("You can create up to 3 groups")
+            this.alertBox('You can create up to 3 groups')
           }
         })
     } else {
-      alert("Please enter a valid group name");
+      this.alertBox('Please enter a valid group name')
     }
   }
 
+  alertBox(string, string2 = null) {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='custom-ui'>
+            <h2>{string}</h2>
+            <p>{string2}</p>
+            <button onClick={() => {
+              onClose()
+            }}>Ok</button>
+          </div>
+        )
+      }
+    })
+  }
+
   leaveGroup(user, groupID) {
-    ServerMethods.leaveGroup(user, groupID)
-      .then(data => {
-        if (data.status === true) {
-          const state = { ...this.state }
-          const loggedUser = data.user;
-          loggedUser.groups = data.userGroups;
-          loggedUser.groupToShow = null;
-          state.user = loggedUser
-          state.scores = data.scoredGames;
-          this.setState(state);
-          alert("You have left the group")
-        }
-      })
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='custom-ui'>
+            <h2>Are you sure you want to leave the the group?</h2>
+            <button onClick={() => {
+              onClose()
+              ServerMethods.leaveGroup(user, groupID)
+                .then(data => {
+                  if (data.status === true) {
+                    const state = { ...this.state }
+                    const loggedUser = data.user;
+                    loggedUser.groups = data.userGroups;
+                    loggedUser.groupToShow = null;
+                    state.user = loggedUser
+                    state.scores = data.scoredGames;
+                    this.setState(state);
+                    this.alertBox("You have left the group")
+                  }
+                })
+            }}>Yes</button>
+            <button onClick={() => {
+              onClose()
+            }}>Cancle</button>
+          </div>
+        )
+      }
+    })
+
   }
 
   placeScore(user, game, awayTeamScore, homeTeamScore) {
@@ -197,8 +241,16 @@ export default class App extends React.Component {
           }
         })
     } else {
-      alert("Please enter valid values");
+      this.alertBox("Please enter valid values");
     }
+  }
+
+  updateTime(time) {
+    if (time.length === 4) {
+      time = `0${time}`;
+    }
+
+    this.setState({ time })
   }
 
   renderAdmin() {
@@ -207,14 +259,14 @@ export default class App extends React.Component {
     }
   }
 
-  render() {
 
+  render() {
     return (
       <div>
-        <Home register={this.register} signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
+        <Home updateTime={this.updateTime} register={this.register} signout={this.signout} login={this.login} user={this.state.user} notRegistered={this.state.notRegistered} registerClick={this.registerClick} />
         <About />
         <Scores leaveGroup={this.leaveGroup} changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
-        <Games games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
+        <Games time={this.state.time} games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
         <Manage user={this.state.user} addToGroup={this.addToGroup} createGroup={this.createGroup} />
         <PastGames games={this.state.games} scores={this.state.scores} />
         {this.renderAdmin()}

@@ -50,7 +50,7 @@ export default class AdminPanel extends React.Component {
     render() {
         return (
             <div className="regular2" id="past-games">
-                <div className="border">
+                <div className="borderScores">
                     <p className="desc3">Admin Panel</p>
                     {this.renderGames()}
                 </div>
