@@ -1,0 +1,26 @@
+{
+  "name": "react-backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "SET PORT=3001 && node ./bin/www",
+    "start:prod": "node ./bin/www",
+    "init-client:prod": "(cd client/ && npm i && npm run build)",
+    "postinstall": "npm run init-client:prod"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "express-session": "^1.15.6",
+    "firebase": "^4.13.1",
+    "firebaseui": "^2.7.0",
+    "jade": "~1.11.0",
+    "mongoose": "^5.0.15",
+    "morgan": "~1.9.0",
+    "node-fetch": "^2.1.2",
+    "serve-favicon": "~2.4.5",
+    "socket.io": "^2.0.4"
+  }
+}
