@@ -9,7 +9,6 @@ let Groups = require('./sample-groups');
 let counter = 0;
 const Group = require('./Group.js');
 const User = require('./User.js');
-
 const firebase = require('../../Fire');
 const auto = require("firebase/auth");
 const db = require('firebase/database');
@@ -234,13 +233,21 @@ router.post('/leaveGroup', function (req, res, next) {
     if (currentGroup.members[0].id !== currentUser.id) {
       currentGroup.admin = currentGroup.members[0].id;
       const newAdmin = getUser(currentGroup, 0)
+      if (!newAdmin.adminAt) {
+        newAdmin.adminAt = []
+      }
       newAdmin.adminAt.push(currentGroup.id);
       var index = currentUser.adminAt.indexOf(currentGroup.id);
       currentUser.adminAt.splice(index, 1);
+      updateUser(newAdmin);
     } else {
       currentGroup.admin = currentGroup.members[1].id;
-      const newAdmin = getUser(currentGroup, currentUser.id);
+      const newAdmin = getUser(currentGroup, 1);
+      if (!newAdmin.adminAt) {
+        newAdmin.adminAt = []
+      }
       newAdmin.adminAt.push(currentGroup.id);
+      var index = currentUser.adminAt.indexOf(currentGroup.id);
       currentUser.adminAt.splice(index, 1);
       updateUser(newAdmin);
     }

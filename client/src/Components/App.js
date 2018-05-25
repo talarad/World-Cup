@@ -8,7 +8,6 @@ import Games from './Games.js';
 import ServerMethods from './ServerMethods.js'
 import AdminPanel from './AdminPanel'
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export default class App extends React.Component {
   constructor() {
