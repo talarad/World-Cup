@@ -61,7 +61,7 @@ export default class App extends React.Component {
     ServerMethods.getData()
       .then(data => {
         if (data.status === true) {
-          this.setState({ games: data.games, scores: data.scoredGames })
+          this.setState({ games: data.games, scores: data.scoredGames})
         }
       })
   }
@@ -109,6 +109,7 @@ export default class App extends React.Component {
   }
 
   register(username, password, email, firstName, lastName) {
+    if(username.length > 2 && password.length > 5 && firstName.length > 1 && lastName.length > 1) {
     ServerMethods.register(username, password, email, firstName, lastName)
       .then(data => {
         if (data.status === true) {
@@ -123,8 +124,13 @@ export default class App extends React.Component {
           document.getElementById("lastname").value = '';
           state.scores = data.scoredGames;
           this.setState(state);
+        } else {
+          this.alertBox("Username is already in use")
         }
       })
+    } else {
+      this.alertBox("Please enter valid fields");
+    }
   }
 
   registerClick() {
@@ -237,6 +243,8 @@ export default class App extends React.Component {
             state.user = loggedUser;
             state.scores = data.scoredGames;
             this.setState(state);
+          } else {
+            this.alertBox("huh!");
           }
         })
     } else {

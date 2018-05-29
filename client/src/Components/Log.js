@@ -29,11 +29,11 @@ export default class Log extends React.Component {
                     <div className="log">User name:
             <input type="text" id='username' />
                     </div>
-                    <div className="log">Password:
+                    <div className="log">Password
             <input type="password" id='password' />
                     </div>
                     <div className="log">Email:
-            <input type="Email" id='email' />
+            <input type="email" id='email' />
                     </div>
                     <div className="log">First name:
             <input type="text" id='firstname' />

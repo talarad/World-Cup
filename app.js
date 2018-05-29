@@ -7,8 +7,11 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/site');
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var session = require('express-session')
 var app = express();
+app.set('trust proxy', 1)
+app.use(session({ saveUninitialized: false, resave: false, secret: 'keyboard cat', cookie: { maxAge: 60000000 } }))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -3,7 +3,7 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const fetch = require('node-fetch');
-const dataJson = require('./dataJson.js')
+let dataJson = require('./dataJson.js')
 let Users = require('./sample-users').users;
 let Groups = require('./sample-groups');
 let counter = 0;
@@ -15,9 +15,11 @@ const db = require('firebase/database');
 
 var database = firebase.database();
 
+
 let scores = []
 let Bets = [];
 let scoredGames = []
+// let dataJson;
 
 // firebase.database().ref('Users/').set(Users);
 // firebase.database().ref('Groups/').set(Groups);
@@ -67,7 +69,71 @@ firebasecounter.on("value", function (snapshot) {
 // })
 
 
+// function updatePastGames() {
+//   let games = [];
+//   const groupA = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=793')
+//     .then(data => data.json());
+//   const groupB = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=794')
+//     .then(data => data.json());
+//   const groupC = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=795')
+//     .then(data => data.json());
+//   const groupD = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=796')
+//     .then(data => data.json());
+//   const groupE = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=797')
+//     .then(data => data.json());
+//   const groupF = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=798')
+//     .then(data => data.json());
+//   const groupG = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=799')
+//     .then(data => data.json());
+//   const groupH = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=800')
+//     .then(data => data.json());
+
+//   Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
+//     .then(([...groups]) => {
+//       groups.forEach(group => {
+//         group.data.fixtures.forEach(game => {
+//           games.push(game)
+//         })
+//       })
+//     })
+//     .then(data => {
+//       scoredGames = data;
+//     })
+// }
+
+
+
+
 router.get('/', function (req, res, next) {
+  // let games = [];
+  // const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=793')
+  //   .then(data => data.json());
+  // const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=794')
+  //   .then(data => data.json());
+  // const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=795')
+  //   .then(data => data.json());
+  // const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=796')
+  //   .then(data => data.json());
+  // const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=797')
+  //   .then(data => data.json());
+  // const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=798')
+  //   .then(data => data.json());
+  // const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=799')
+  //   .then(data => data.json());
+  // const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=800')
+  //   .then(data => data.json());
+
+
+  // Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
+  //   .then(([...groups]) => {
+  //     groups.forEach(group => {
+  //       group.data.fixtures.forEach(game => {
+  //         games.push(game)
+  //       })
+  //     })
+  //   })
+  //   .then(data => {
+  //     dataJson = games;
   let games = dataJson;
   games.sort(function (a, b) {
     if (a.date <= b.date) return -1;
@@ -75,6 +141,7 @@ router.get('/', function (req, res, next) {
     return 0;
   })
   res.json({ status: true, games, scoredGames });
+  // })
 })
 
 router.post('/', function (req, res, next) {
@@ -82,10 +149,13 @@ router.post('/', function (req, res, next) {
 
   const user = login(username, password)
   if (user) {
-
+    if (req.session.name === undefined) {
+      req.session.name = username;
+    }
     currentUser = getCurrentUser(user);
 
-    if (currentUser.username === 'tal') {
+    // if (currentUser.username === 'tal') {
+    if (req.session.name === 'tal') {
       currentUser.scoredGames = scoredGames;
     }
 
@@ -99,46 +169,59 @@ router.post('/', function (req, res, next) {
 
 router.post('/register', function (req, res, next) {
   const { username, password, email, firstName, lastName } = req.body;
+  let isUsernameFree = true;
 
+  Users.forEach(user => {
+    if(user.username === username) {
+      isUsernameFree = false;
+    }
+  })
+
+  if(isUsernameFree) {
   const user = new User(username, password, email, firstName, lastName, counter++);
   Users.push(user);
   firebase.database().ref('Users/').set(Users);
 
   res.json({ user, status: true, scoredGames });
+  } else {
+    res.json({status: false})
+  }
 })
 
 
 router.post('/placeScore', function (req, res, next) {
   const { user, game, awayTeamScore, homeTeamScore } = req.body;
-  const currentUser = getCurrentUser(user);
+  if (req.session.name === 'tal') {
+    const currentUser = getCurrentUser(user);
 
-  const currentGame = {
-    id: game.id,
-    homeName: game.home_name,
-    date: game.date,
-    awayName: game.away_name,
-    home: homeTeamScore,
-    away: awayTeamScore,
-    done: true
-  };
+    const currentGame = {
+      id: game.id,
+      homeName: game.home_name,
+      date: game.date,
+      awayName: game.away_name,
+      home: homeTeamScore,
+      away: awayTeamScore,
+      done: true
+    };
 
-  scores.push(currentGame);
-  scoredGames.push(currentGame)
-  updatePoints(currentGame)
+    scores.push(currentGame);
+    scoredGames.push(currentGame)
+    updatePoints(currentGame)
 
-  firebase.database().ref('scoredGames').set(scoredGames);
+    firebase.database().ref('scoredGames').set(scoredGames);
 
-  if (currentUser.username === 'tal') {
     currentUser.scoredGames = scoredGames;
+
+    updateUser(currentUser);
+
+    firebase.database().ref('Users').set(Users);
+    firebase.database().ref('Groups').set(Groups);
+
+    const userGroups = getGroups(currentUser);
+    res.json({ user: currentUser, userGroups, status: true, scoredGames });
+  } else {
+    res.json({ status: false })
   }
-
-  updateUser(currentUser);
-
-  firebase.database().ref('Users').set(Users);
-  firebase.database().ref('Groups').set(Groups);
-
-  const userGroups = getGroups(currentUser);
-  res.json({ user: currentUser, userGroups, status: true, scoredGames });
 });
 
 

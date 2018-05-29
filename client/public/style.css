@@ -218,12 +218,22 @@ a:hover {
   color: white;
 }
 
+#small {
+  font-size: 10px;
+  margin: 0 0;
+  letter-spacing: none;
+  color: white;
+  text-transform: none;
+  text-decoration: none;
+  font-style: 8px "Ariel" sans-serif;
+}
+
 .friends {
   position: relative;
   top: 10vh;
   text-align: center;
-  width: 80vw;
-  left: 10vw;
+  width: 70vw;
+  left: 15vw;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   color: white;
   border-collapse: collapse;
