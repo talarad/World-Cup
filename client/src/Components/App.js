@@ -203,7 +203,7 @@ export default class App extends React.Component {
       customUI: ({ onClose }) => {
         return (
           <div className='custom-ui'>
-            <h2>Are you sure you want to leave the the group?</h2>
+            <h2>Are you sure you want to leave the group?</h2>
             <button onClick={() => {
               onClose()
               ServerMethods.leaveGroup(user, groupID)
