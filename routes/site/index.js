@@ -181,6 +181,7 @@ router.post('/register', function (req, res, next) {
   const user = new User(username, password, email, firstName, lastName, counter++);
   Users.push(user);
   firebase.database().ref('Users/').set(Users);
+  firebase.database().ref('Counter/').set(counter);
 
   res.json({ user, status: true, scoredGames });
   } else {
