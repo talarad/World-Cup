@@ -109,7 +109,7 @@ export default class App extends React.Component {
   }
 
   register(username, password, firstName, lastName) {
-    if (username.length >= 2 && password.length >= 4 && firstName.length > 1 && lastName.length > 1) {
+    if (username.length >= 2 && password.length >= 2 && firstName.length > 2 && lastName.length > 2) {
       ServerMethods.register(username, password, firstName, lastName)
         .then(data => {
           if (data.status === true) {
@@ -128,10 +128,8 @@ export default class App extends React.Component {
           }
         })
     } else {
-      this.alertBox(`Please enter valid fields:
-                      Username must be atleast 2 letters
-                      password must be atleast 4 letters
-                      all fields are mandatory`
+
+      this.alertBox("Please fill up all fields with a valid value (atleast 2 letters)"
       );
     }
   }
@@ -155,7 +153,7 @@ export default class App extends React.Component {
           this.alertBox('Friend has been successfully added to group!')
 
         } else if (data.status === 'tooMany') {
-          this.alertBox("Can't add friend since he's in too many groups")
+          this.alertBox("Can't add friend, has reached maximum number of groups")
 
         } else {
           this.alertBox('Wrong username or friend is already in this group!')
