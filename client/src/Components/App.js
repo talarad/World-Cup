@@ -92,17 +92,32 @@ export default class App extends React.Component {
     const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
     const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
     if (homeCheck && awayCheck) {
-      ServerMethods.bet(user, matchID, awayTeamScore, homeTeamScore)
-        .then(data => {
-          if (data.status === true) {
-            const state = { ...this.state }
-            const loggedUser = data.user;
-            loggedUser.groups = data.userGroups;
-            state.user = loggedUser
-            state.scores = data.scoredGames;
-            this.setState(state);
-          }
-        })
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div className='custom-ui'>
+              <h2>Are you sure? cannot be changed after</h2>
+              <button onClick={() => {
+                onClose()
+                ServerMethods.bet(user, matchID, awayTeamScore, homeTeamScore)
+                  .then(data => {
+                    if (data.status === true) {
+                      const state = { ...this.state }
+                      const loggedUser = data.user;
+                      loggedUser.groups = data.userGroups;
+                      state.user = loggedUser
+                      state.scores = data.scoredGames;
+                      this.setState(state);
+                    }
+                  })
+              }}>Yes</button>
+              <button onClick={() => {
+                onClose()
+              }}>Cancle</button>
+            </div>
+          )
+        }
+      })
     } else {
       this.alertBox('Please enter valid values')
     }
