@@ -69,7 +69,7 @@ class ServerMethods {
         }).then(result => result.json());
     }
 
-    register(username, password, email, firstName, lastName) {
+    register(username, password, firstName, lastName) {
         return fetch('/site/register', {
             method: 'POST',
             credentials: 'include',
@@ -77,7 +77,7 @@ class ServerMethods {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password, email, firstName, lastName })
+            body: JSON.stringify({ username, password, firstName, lastName })
         }).then(result => result.json());
     }
 

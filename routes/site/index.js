@@ -168,7 +168,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/register', function (req, res, next) {
-  const { username, password, email, firstName, lastName } = req.body;
+  const { username, password, firstName, lastName } = req.body;
   let isUsernameFree = true;
 
   Users.forEach(user => {
@@ -178,7 +178,7 @@ router.post('/register', function (req, res, next) {
   })
 
   if (isUsernameFree) {
-    const user = new User(username.toLowerCase(), password, email, firstName, lastName, counter++);
+    const user = new User(username.toLowerCase(), password, firstName, lastName, counter++);
     Users.push(user);
     firebase.database().ref('Users/').set(Users);
     firebase.database().ref('Counter/').set(counter);

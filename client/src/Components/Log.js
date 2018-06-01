@@ -17,11 +17,12 @@ export default class Log extends React.Component {
                     <div className="log">Password:
                         <input type="password" id='password' />
                     </div>
+                    <div className="space">  </div>
                     <div className="log">
                         <button id="logButton" onClick={() => this.props.login(document.getElementById('username').value, document.getElementById('password').value)}> Log in </button>
                         <button id="register" onClick={() => this.props.registerClick()}> Not registered? </button>
                     </div>
-                </span>
+                </span >
             )
         } else {
             return (
@@ -32,19 +33,16 @@ export default class Log extends React.Component {
                     <div className="log">Password
             <input type="password" id='password' />
                     </div>
-                    <div className="log">Email:
-            <input type="email" id='email' />
-                    </div>
                     <div className="log">First name:
             <input type="text" id='firstname' />
                         <div className="log">Last name:
             <input type="text" id='lastname' />
                         </div>
                     </div>
+                    <div className="space">  </div>
                     <div className="log">
                         <button id="logButton" onClick={() => this.props.register(document.getElementById('username').value,
-                            document.getElementById('password').value, document.getElementById('email').value,
-                            document.getElementById('firstname').value, document.getElementById('lastname').value)}> Register </button>
+                            document.getElementById('password').value, document.getElementById('firstname').value, document.getElementById('lastname').value)}> Register </button>
                         <button id="register" onClick={() => this.props.registerClick()}> Already registered? </button>
                     </div>
                 </span >
@@ -53,7 +51,7 @@ export default class Log extends React.Component {
     }
 
     render() {
-        
+
         return (
             <div>
                 {this.renderLogin()}

@@ -339,6 +339,10 @@ h3 {
   color: white;
 }
 
+.space {
+  padding: 4px ;
+}
+
 .log, .login {
   margin: 12px auto;
   letter-spacing: 3px;
