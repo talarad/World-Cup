@@ -25,7 +25,7 @@ export default class Game extends React.Component {
 
             let gameTime = this.props.game.time.substring(0, 5);
 
-            if ((this.props.today <= this.props.game.date && time < gameTime) || (this.props.game.date === this.props.today && time < gameTime)) {
+            //if ((this.props.today <= this.props.game.date && time < gameTime) || (this.props.game.date === this.props.today && time < gameTime)) {
                 if (userBet === null || userBet === undefined) {
                     return (
                         <span>
@@ -42,19 +42,19 @@ export default class Game extends React.Component {
                         </span>
                     )
                 }
-            } else {
-                if (userBet === null || userBet === undefined) {
-                    return ('Bets finished')
-                } else {
-                    return (
-                        <span>
-                            My bet:  {userBet.away} - {userBet.home}
-                            <br />
-                            Bets finished
-                            </span >
-                    )
-                }
-            }
+            // } else {
+            //     if (userBet === null || userBet === undefined) {
+            //         return ('Bets finished')
+            //     } else {
+            //         return (
+            //             <span>
+            //                 My bet:  {userBet.away} - {userBet.home}
+            //                 <br />
+            //                 Bets finished
+            //                 </span >
+            //         )
+            //     }
+            // }
 
         } else if (this.props.ended) {
             return (
