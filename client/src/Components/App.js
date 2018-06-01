@@ -124,7 +124,7 @@ export default class App extends React.Component {
   }
 
   register(username, password, firstName, lastName) {
-    if (username.length >= 2 && password.length >= 2 && firstName.length > 2 && lastName.length > 2) {
+    if (username.length >= 2 && password.length >= 2 && firstName.length >= 2 && lastName.length >= 2) {
       ServerMethods.register(username, password, firstName, lastName)
         .then(data => {
           if (data.status === true) {
@@ -169,7 +169,8 @@ export default class App extends React.Component {
 
         } else if (data.status === 'tooMany') {
           this.alertBox("Can't add friend, has reached maximum number of groups")
-
+        } else if (data.status === 'maxMembers') {
+          this.alertBox("Maximun number of friends in group")
         } else {
           this.alertBox('Wrong username or friend is already in this group!')
         }

@@ -265,6 +265,8 @@ router.post('/addToGroup', function (req, res, next) {
   if (friend && friend !== -1) {
     if (friend.groups.length >= 5) {
       res.json({ status: "tooMany" });
+    } else if (currentGroup.members.length >= 12) {
+      res.json({ status: "maxMembers" });
     } else {
       isAlreadyInGroup = friend.groups.includes(groupID);
       if (friend && currentGroup.admin === user.id && !isAlreadyInGroup) {
