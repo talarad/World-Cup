@@ -124,8 +124,8 @@ export default class App extends React.Component {
   }
 
   updateBet(user, matchID, awayTeamScore, homeTeamScore) {
-    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
-    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
+    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore % 1 === 0 && homeTeamScore >= 0 && homeTeamScore <= 12;
+    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore % 1 === 0 && awayTeamScore >= 0 && awayTeamScore <= 12;
     if (homeCheck && awayCheck) {
       confirmAlert({
         customUI: ({ onClose }) => {
