@@ -20,6 +20,8 @@ export default class AdminGame extends React.Component {
                     score = scoredGame;
                 }
             })
+
+            console.log(score)
             if (score === null || score === undefined) {
                 return (
                     <span>
