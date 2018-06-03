@@ -6,26 +6,28 @@ const fetch = require('node-fetch');
 let dataJson = require('./dataJson.js')
 let Users = require('./sample-users').users;
 let Groups = require('./sample-groups');
-let counter = 0;
+let counter = Users.length;
 const Group = require('./Group.js');
 const User = require('./User.js');
 const firebase = require('../../Fire');
 const auto = require("firebase/auth");
 const db = require('firebase/database');
+const uuidv4 = require('uuid/v4');
 
 var database = firebase.database();
 
-
+let Tokens = { test: 'test' };
 let scores = []
 let Bets = [];
 let scoredGames = []
 // let dataJson;
 
+// firebase.database().ref('Tokens/').set(Tokens);
 // firebase.database().ref('Users/').set(Users);
 // firebase.database().ref('Groups/').set(Groups);
 // firebase.database().ref('Bets/').set(Bets);
 // firebase.database().ref('scoredGames/').set(scoredGames);
-// firebase.database().ref('counter/').set(counter);
+// firebase.database().ref('Counter/').set(counter);
 // firebase.database().ref('scores/').set(scores);
 
 var firebaseUsers = firebase.database().ref('Users/');
@@ -153,19 +155,58 @@ router.post('/', function (req, res, next) {
       req.session.name = username.toLowerCase();
     }
     currentUser = getCurrentUser(user);
+    updateUser(currentUser);
+    const userGroups = getGroups(user);
+
+    var token = updateToken(user);
 
     // if (currentUser.username === 'tal') {
     if (req.session.name.toLowerCase() === 'tal') {
-      currentUser.scoredGames = scoredGames;
+      res.json({ user: currentUser, token, userGroups, status: true, scoredGames, admin: true });
+    } else {
+      res.json({ user: currentUser, token, userGroups, status: true, scoredGames });
     }
-
-    updateUser(currentUser);
-    const userGroups = getGroups(user);
-    res.json({ user: currentUser, userGroups, status: true, scoredGames });
   } else {
     res.json({ status: false })
   }
 });
+
+router.post('/signout', function (req, res, next) {
+  const { token } = req.body;
+
+  if(token) {
+    Tokens[token] = null;
+    firebase.database().ref('Tokens').set(Tokens);
+  }
+
+  req.session.destroy();
+  res.end();
+})
+
+router.post('/loginWithToken', function (req, res, next) {
+  const { token } = req.body;
+
+  const user = tryLoginWithToken(token);
+  if (user) {
+    if (req.session.name === undefined) {
+      req.session.name = username.toLowerCase();
+    }
+    currentUser = getCurrentUser(user);
+    updateUser(currentUser);
+    const userGroups = getGroups(user);
+
+    // if (currentUser.username === 'tal') {
+    if (req.session.name.toLowerCase() === 'tal') {
+      res.json({ user: currentUser, userGroups, status: true, scoredGames, admin: true });
+    } else {
+      res.json({ user: currentUser, userGroups, status: true, scoredGames });
+    }
+  } else {
+    res.json({ status: false })
+  }
+})
+
+
 
 router.post('/register', function (req, res, next) {
   const { username, password, firstName, lastName } = req.body;
@@ -180,10 +221,13 @@ router.post('/register', function (req, res, next) {
   if (isUsernameFree) {
     const user = new User(username.toLowerCase(), password, firstName, lastName, counter++);
     Users.push(user);
+
+    var token = updateToken(user);
+
     firebase.database().ref('Users/').set(Users);
     firebase.database().ref('Counter/').set(counter);
 
-    res.json({ user, status: true, scoredGames });
+    res.json({ user, status: true, scoredGames, token });
   } else {
     res.json({ status: false })
   }
@@ -359,6 +403,20 @@ function removeGroupFromUser(user, group) {
   return user;
 }
 
+function updateToken(user) {
+  const token = uuidv4();
+
+  var firebaseTokens = firebase.database().ref('Tokens/');
+  firebaseTokens.on("value", function (snapshot) {
+    Tokens = snapshot.val();
+  })
+
+  Tokens[token] = user.username;
+  firebase.database().ref('Tokens/').set(Tokens);
+
+  return token;
+}
+
 function updateUser(user) {
   let index;
   Users.forEach((member, i) => {
@@ -378,6 +436,24 @@ function updateGroup(group) {
     Groups.splice(index, 1);
   } else {
     Groups[index] = group;
+  }
+}
+
+function tryLoginWithToken(token) {
+  var firebaseTokens = firebase.database().ref('Tokens/');
+  firebaseTokens.on("value", function (snapshot) {
+    Tokens = snapshot.val();
+  })
+
+  const username = Tokens[token];
+
+  if (username) {
+    const user = Users.find(userFromUsers => { return userFromUsers.username.toLowerCase() === username.toLowerCase() })
+    if (user && user != -1) {
+      return user
+    }
+  } else {
+    return false;
   }
 }
 

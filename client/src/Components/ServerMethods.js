@@ -21,6 +21,30 @@ class ServerMethods {
         }).then(result => result.json());
     }
 
+    signOut(token) {
+        return fetch('/site/signout', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token })
+        })
+    }
+
+    loginWithToken(token) {
+        return fetch('/site/loginWithToken', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token })
+        }).then(result => result.json());
+    }
+
     bet(user, matchID, awayTeamScore, homeTeamScore) {
         return fetch('/site/bet', {
             method: 'POST',

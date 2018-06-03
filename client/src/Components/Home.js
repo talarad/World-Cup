@@ -11,7 +11,7 @@ export default class Home extends React.Component {
             return (
                 <div>
                     <li onClick={() => this.props.signout()}>
-                        <a href="#signOut" >Sign Out</a>
+                        <a>Sign Out</a>
                     </li>
                 </div>
             )
@@ -42,9 +42,6 @@ export default class Home extends React.Component {
 
                     {this.renderHello()}
                     <li>
-                        <a href="#home">Home</a>
-                    </li>
-                    <li>
                         <a href="#about">About</a>
                     </li>
                     <li>
@@ -54,7 +51,7 @@ export default class Home extends React.Component {
                         <a href="#games">Bet games</a>
                     </li>
                     <li>
-                        <a href="#manage">Create & manage</a>
+                        <a href="#manage">Create & Manage</a>
                     </li>
                     <li>
                         <a href="#past-games">Past matches</a>

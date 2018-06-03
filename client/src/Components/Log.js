@@ -28,15 +28,15 @@ export default class Log extends React.Component {
             return (
                 <span className="sign">
                     <div className="log">User name:
-            <input type="text" id='username' maxlength="10"/>
+            <input type="text" id='username' maxLength="10"/>
                     </div>
                     <div className="log">Password
-            <input type="password" id='password' maxlength="10"/>
+            <input type="password" id='password' maxLength="10"/>
                     </div>
                     <div className="log">First name:
-            <input type="text" id='firstname' maxlength="10"/>
+            <input type="text" id='firstname' maxLength="10"/>
                         <div className="log">Last name:
-            <input type="text" id='lastname' maxlength="10"/>
+            <input type="text" id='lastname' maxLength="10"/>
                         </div>
                     </div>
                     <div className="space">  </div>

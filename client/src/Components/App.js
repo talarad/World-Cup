@@ -49,6 +49,12 @@ export default class App extends React.Component {
           state.notRegistered = false;
           state.user = loggedUser;
           state.scores = data.scoredGames;
+          if (data.admin) {
+            state.admin = data.admin;
+          }
+
+          localStorage.setItem('token', data.token);
+
           this.setState(state);
         } else {
           this.alertBox('Wrong username or password', 'Please try again')
@@ -58,17 +64,45 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    ServerMethods.getData()
-      .then(data => {
-        if (data.status === true) {
-          this.setState({ games: data.games, scores: data.scoredGames })
-        }
-      })
+    const token = localStorage.getItem('token')
+    if (token) {
+      
+      ServerMethods.loginWithToken(token)
+        .then(data => {
+         
+          if (data.status) {
+            const loggedUser = data.user;
+            loggedUser.groups = data.userGroups;
+            const state = {};
+            state.notRegistered = false;
+            state.user = loggedUser;
+            state.scores = data.scoredGames;
+            if (data.admin) {
+              state.admin = data.admin;
+            }
+            this.setState(state);
+          }
+        })
+    } else {
+      ServerMethods.getData()
+        .then(data => {
+          if (data.status === true) {
+            this.setState({ games: data.games, scores: data.scoredGames })
+          }
+        })
+    }
   }
 
   signout() {
     const notRegistered = true;
-    this.setState({ user: undefined, notRegistered, groupToShow: null });
+    const token = localStorage.getItem('token')
+    if (token) {
+      localStorage.removeItem('token')
+    }
+
+    ServerMethods.signOut(token).then(() => {
+      this.setState({ user: undefined, notRegistered, groupToShow: null });
+    })
   }
 
   changeGroupView(group) {
@@ -113,7 +147,7 @@ export default class App extends React.Component {
               }}>Yes</button>
               <button onClick={() => {
                 onClose()
-              }}>Cancle</button>
+              }}>Cancel</button>
             </div>
           )
         }
@@ -124,7 +158,7 @@ export default class App extends React.Component {
   }
 
   register(username, password, firstName, lastName) {
-    if (username.length >= 2 && password.length >= 2 && firstName.length >= 2 && lastName.length >= 2) {
+    if (username.length >= 2 && password.length >= 4 && firstName.length >= 2 && lastName.length >= 2) {
       ServerMethods.register(username, password, firstName, lastName)
         .then(data => {
           if (data.status === true) {
@@ -137,6 +171,9 @@ export default class App extends React.Component {
             document.getElementById("firstname").value = '';
             document.getElementById("lastname").value = '';
             state.scores = data.scoredGames;
+
+            localStorage.setItem('token', data.token);
+
             this.setState(state);
           } else {
             this.alertBox("Username is already in use")
@@ -239,7 +276,7 @@ export default class App extends React.Component {
             }}>Yes</button>
             <button onClick={() => {
               onClose()
-            }}>Cancle</button>
+            }}>Cancel</button>
           </div>
         )
       }
@@ -278,11 +315,10 @@ export default class App extends React.Component {
   }
 
   renderAdmin() {
-    if (this.state.user && this.state.user.username === 'tal') {
+    if (this.state.admin && this.state.user && this.state.user.username === 'tal') {
       return <AdminPanel games={this.state.games} user={this.state.user} placeScore={this.placeScore} />
     }
   }
-
 
   render() {
     return (
