@@ -66,10 +66,10 @@ export default class App extends React.Component {
   componentWillMount() {
     const token = localStorage.getItem('token')
     if (token) {
-      
+
       ServerMethods.loginWithToken(token)
         .then(data => {
-         
+
           if (data.status) {
             const loggedUser = data.user;
             loggedUser.groups = data.userGroups;
@@ -83,14 +83,15 @@ export default class App extends React.Component {
             this.setState(state);
           }
         })
-    } else {
-      ServerMethods.getData()
-        .then(data => {
-          if (data.status === true) {
-            this.setState({ games: data.games, scores: data.scoredGames })
-          }
-        })
     }
+
+
+    ServerMethods.getData()
+      .then(data => {
+        if (data.status === true) {
+          this.setState({ games: data.games, scores: data.scoredGames })
+        }
+      })
   }
 
   signout() {
@@ -285,8 +286,8 @@ export default class App extends React.Component {
   }
 
   placeScore(user, game, awayTeamScore, homeTeamScore) {
-    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
-    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
+    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && Number.isInteger(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
+    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && Number.isInteger(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
     if (homeCheck && awayCheck && user.username === 'tal') {
       ServerMethods.placeScore(user, game, awayTeamScore, homeTeamScore)
         .then(data => {
