@@ -3,6 +3,7 @@ import React from 'react';
 export default class AdminGame extends React.Component {
 
     renderBetButton() {
+        console.log(this.props.user, this.props.user.scoredGames)
         if (this.props.user && this.props.user.scoredGames) {
             const { user } = this.props;
             const gameID = this.props.game.id;
