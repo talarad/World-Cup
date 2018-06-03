@@ -254,9 +254,6 @@ router.post('/placeScore', function (req, res, next) {
     updatePoints(currentGame)
 
     firebase.database().ref('scoredGames').set(scoredGames);
-
-    currentUser.scoredGames = scoredGames;
-
     updateUser(currentUser);
 
     firebase.database().ref('Users').set(Users);

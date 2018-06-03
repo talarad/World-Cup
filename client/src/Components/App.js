@@ -317,7 +317,7 @@ export default class App extends React.Component {
 
   renderAdmin() {
     if (this.state.admin && this.state.user && this.state.user.username === 'tal') {
-      return <AdminPanel games={this.state.games} user={this.state.user} placeScore={this.placeScore} />
+      return <AdminPanel scoredGames={this.state.scores} games={this.state.games} user={this.state.user} placeScore={this.placeScore} />
     }
   }
 

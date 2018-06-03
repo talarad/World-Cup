@@ -3,9 +3,8 @@ import React from 'react';
 export default class AdminGame extends React.Component {
 
     renderBetButton() {
-        console.log(this.props.user, this.props.user.scoredGames)
-        if (this.props.user && this.props.user.scoredGames) {
-            const { user } = this.props;
+        if (this.props.user && this.props.scoredGames) {
+            const { user, scoredGames } = this.props;
             const gameID = this.props.game.id;
             let score;
 
@@ -16,13 +15,12 @@ export default class AdminGame extends React.Component {
                     </span>
                 )
             }
-            Object.values(user.scoredGames).forEach(scoredGame => {
+            Object.values(scoredGames).forEach(scoredGame => {
                 if (scoredGame.id.toString() === gameID.toString()) {
                     score = scoredGame;
                 }
             })
 
-            console.log(score)
             if (score === null || score === undefined) {
                 return (
                     <span>

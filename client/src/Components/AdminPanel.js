@@ -40,7 +40,7 @@ export default class AdminPanel extends React.Component {
             this.props.games.map((game, index) => {
                 
                 if (game.date <= date) {
-                    return (<AdminGame placeScore={this.props.placeScore} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
+                    return (<AdminGame scoredGames={this.props.scoredGames} placeScore={this.props.placeScore} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
 
                 }
                 return null;
