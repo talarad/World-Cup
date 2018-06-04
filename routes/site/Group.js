@@ -1,12 +1,10 @@
 
-let counter = 0
-
 class Group {
-    constructor(name, admin) {
+    constructor(name, admin, id) {
         this.name = name;
         this.admin = admin;
         this.members = [];
-        this.id = counter++;
+        this.id = id;
     }
 
     addMember(newMember) {

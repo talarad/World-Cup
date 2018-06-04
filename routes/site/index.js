@@ -4,31 +4,37 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const fetch = require('node-fetch');
 let dataJson = require('./dataJson.js')
-let Users = require('./sample-users').users;
-let Groups = require('./sample-groups');
-let counter = Users.length;
 const Group = require('./Group.js');
 const User = require('./User.js');
 const firebase = require('../../Fire');
-const auto = require("firebase/auth");
 const db = require('firebase/database');
 const uuidv4 = require('uuid/v4');
 
 var database = firebase.database();
 
+// let Users = require('./sample-users').users;
+// let Groups = require('./sample-groups');
+// let counter = Users.length;
+// let groupCounter = Groups.length;
+let Users;
+let Groups;
+let counter;
+let groupCounter
+
 let Tokens = { test: 'test' };
-let scores = []
 let Bets = [];
 let scoredGames = []
+
+
 // let dataJson;
 
+// firebase.database().ref('groupCounter/').set(groupCounter);
 // firebase.database().ref('Tokens/').set(Tokens);
 // firebase.database().ref('Users/').set(Users);
 // firebase.database().ref('Groups/').set(Groups);
 // firebase.database().ref('Bets/').set(Bets);
 // firebase.database().ref('scoredGames/').set(scoredGames);
 // firebase.database().ref('Counter/').set(counter);
-// firebase.database().ref('scores/').set(scores);
 
 var firebaseUsers = firebase.database().ref('Users/');
 firebaseUsers.on("value", function (snapshot) {
@@ -64,78 +70,12 @@ firebasecounter.on("value", function (snapshot) {
   counter = snapshot.val() || [];
 })
 
-
-// var firebasescores = firebase.database().ref('scores');
-// firebasescores.on("value", function (snapshot) {
-//   scores = snapshot.val() || [];
-// })
-
-
-// function updatePastGames() {
-//   let games = [];
-//   const groupA = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=793')
-//     .then(data => data.json());
-//   const groupB = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=794')
-//     .then(data => data.json());
-//   const groupC = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=795')
-//     .then(data => data.json());
-//   const groupD = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=796')
-//     .then(data => data.json());
-//   const groupE = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=797')
-//     .then(data => data.json());
-//   const groupF = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=798')
-//     .then(data => data.json());
-//   const groupG = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=799')
-//     .then(data => data.json());
-//   const groupH = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=800')
-//     .then(data => data.json());
-
-//   Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
-//     .then(([...groups]) => {
-//       groups.forEach(group => {
-//         group.data.fixtures.forEach(game => {
-//           games.push(game)
-//         })
-//       })
-//     })
-//     .then(data => {
-//       scoredGames = data;
-//     })
-// }
-
-
-
+var firebaseGroupCounter = firebase.database().ref('groupCounter');
+firebaseGroupCounter.on("value", function (snapshot) {
+  groupCounter = snapshot.val() || [];
+})
 
 router.get('/', function (req, res, next) {
-  // let games = [];
-  // const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=793')
-  //   .then(data => data.json());
-  // const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=794')
-  //   .then(data => data.json());
-  // const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=795')
-  //   .then(data => data.json());
-  // const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=796')
-  //   .then(data => data.json());
-  // const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=797')
-  //   .then(data => data.json());
-  // const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=798')
-  //   .then(data => data.json());
-  // const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=799')
-  //   .then(data => data.json());
-  // const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=800')
-  //   .then(data => data.json());
-
-
-  // Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
-  //   .then(([...groups]) => {
-  //     groups.forEach(group => {
-  //       group.data.fixtures.forEach(game => {
-  //         games.push(game)
-  //       })
-  //     })
-  //   })
-  //   .then(data => {
-  //     dataJson = games;
   let games = dataJson;
   games.sort(function (a, b) {
     if (a.date <= b.date) return -1;
@@ -143,7 +83,6 @@ router.get('/', function (req, res, next) {
     return 0;
   })
   res.json({ status: true, games, scoredGames });
-  // })
 })
 
 router.post('/', function (req, res, next) {
@@ -161,7 +100,7 @@ router.post('/', function (req, res, next) {
     var token = updateToken(user);
 
     // if (currentUser.username === 'tal') {
-    if (req.session.name.toLowerCase() === 'tal') {
+    if (req.session.name && req.session.name.toLowerCase() === 'tal') {
       res.json({ user: currentUser, token, userGroups, status: true, scoredGames, admin: true });
     } else {
       res.json({ user: currentUser, token, userGroups, status: true, scoredGames });
@@ -174,7 +113,7 @@ router.post('/', function (req, res, next) {
 router.post('/signout', function (req, res, next) {
   const { token } = req.body;
 
-  if(token) {
+  if (token) {
     Tokens[token] = null;
     firebase.database().ref('Tokens').set(Tokens);
   }
@@ -196,7 +135,7 @@ router.post('/loginWithToken', function (req, res, next) {
     const userGroups = getGroups(user);
 
     // if (currentUser.username === 'tal') {
-    if (req.session.name.toLowerCase() === 'tal') {
+    if (req.session.name && req.session.name.toLowerCase() === 'tal') {
       res.json({ user: currentUser, userGroups, status: true, scoredGames, admin: true });
     } else {
       res.json({ user: currentUser, userGroups, status: true, scoredGames });
@@ -249,7 +188,6 @@ router.post('/placeScore', function (req, res, next) {
       done: true
     };
 
-    scores.push(currentGame);
     scoredGames.push(currentGame)
     updatePoints(currentGame)
 
@@ -303,8 +241,12 @@ router.post('/addToGroup', function (req, res, next) {
   const currentGroup = getGroup(groupID);
   let isAlreadyInGroup = false;
 
+
   if (friend && friend !== -1) {
-    if (friend.groups.length >= 5) {
+    if (!friend.groups) {
+      friend.groups = [];
+    }
+    if (friend.groups && friend.groups.length >= 5) {
       res.json({ status: "tooMany" });
     } else if (currentGroup.members.length >= 12) {
       res.json({ status: "maxMembers" });
@@ -333,20 +275,29 @@ router.post('/createGroup', function (req, res, next) {
   const { user, groupName } = req.body;
   const currentUser = getCurrentUser(user);
 
-  if (currentUser.adminAt.length >= 3) {
-    res.json({ status: 'tooMany' });
-  } else {
-    let group = new Group(groupName, currentUser.id)
-    group = addMember(group, currentUser)
-    currentUser.adminAt.push(group.id);
-    currentUser.groups.push(group.id);
-    Groups.push(group);
-    updateUser(currentUser);
-    const userGroups = getGroups(currentUser);
+  if (currentUser) {
+    if (!currentUser.groups) {
+      currentUser.groups = [];
+    }
 
-    firebase.database().ref('Users').set(Users);
-    firebase.database().ref('Groups').set(Groups);
-    res.json({ user: currentUser, userGroups, status: true, scoredGames });
+    if (currentUser.adminAt.length >= 3) {
+      res.json({ status: 'tooMany' });
+    } else {
+      let group = new Group(groupName, currentUser.id, groupCounter++)
+      group = addMember(group, currentUser)
+      currentUser.adminAt.push(group.id);
+      currentUser.groups.push(group.id);
+      Groups.push(group);
+      updateUser(currentUser);
+      const userGroups = getGroups(currentUser);
+
+      firebase.database().ref('groupCounter').set(groupCounter);
+      firebase.database().ref('Users').set(Users);
+      firebase.database().ref('Groups').set(Groups);
+      res.json({ user: currentUser, userGroups, status: true, scoredGames });
+    }
+  } else {
+    res.json({ status: false })
   }
 })
 
