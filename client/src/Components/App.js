@@ -282,26 +282,40 @@ export default class App extends React.Component {
         )
       }
     })
-
   }
 
   placeScore(user, game, awayTeamScore, homeTeamScore) {
-    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && Number.isInteger(homeTeamScore) && homeTeamScore >= 0 && homeTeamScore <= 12;
-    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && Number.isInteger(awayTeamScore) && awayTeamScore >= 0 && awayTeamScore <= 12;
+    const homeCheck = homeTeamScore && !isNaN(homeTeamScore) && homeTeamScore % 1 === 0 && homeTeamScore >= 0 && homeTeamScore <= 12;
+    const awayCheck = awayTeamScore && !isNaN(awayTeamScore) && awayTeamScore % 1 === 0 && awayTeamScore >= 0 && awayTeamScore <= 12;
     if (homeCheck && awayCheck && user.username === 'tal') {
-      ServerMethods.placeScore(user, game, awayTeamScore, homeTeamScore)
-        .then(data => {
-          if (data.status === true) {
-            const state = { ...this.state }
-            const loggedUser = data.user;
-            loggedUser.groups = data.userGroups;
-            state.user = loggedUser;
-            state.scores = data.scoredGames;
-            this.setState(state);
-          } else {
-            this.alertBox("huh!");
-          }
-        })
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div className='custom-ui'>
+              <h2>Are you sure?</h2>
+              <button onClick={() => {
+                onClose()
+                ServerMethods.placeScore(user, game, awayTeamScore, homeTeamScore)
+                  .then(data => {
+                    if (data.status === true) {
+                      const state = { ...this.state }
+                      const loggedUser = data.user;
+                      loggedUser.groups = data.userGroups;
+                      state.user = loggedUser;
+                      state.scores = data.scoredGames;
+                      this.setState(state);
+                    } else {
+                      this.alertBox("huh!");
+                    }
+                  })
+              }}>Yes</button>
+              <button onClick={() => {
+                onClose()
+              }}>Cancel</button>
+            </div>
+          )
+        }
+      })
     } else {
       this.alertBox("Please enter valid values");
     }
