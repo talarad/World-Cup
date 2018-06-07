@@ -19,32 +19,30 @@ var database = firebase.database();
 // let groupCounter = Groups.length;
 let Users;
 let Groups;
-let counter;
-let groupCounter
+let counter = 0;
+let groupCounter = 0;
 
 let Tokens = { test: 'test' };
 let Bets = [];
 let scoredGames = []
 
-
-// let dataJson;
-// firebase.database().ref('groupCounter/').set(groupCounter);
+//firebase.database().ref('groupCounter/').set(groupCounter);
 // firebase.database().ref('Tokens/').set(Tokens);
 // firebase.database().ref('Users/').set(Users);
 // firebase.database().ref('Groups/').set(Groups);
 // firebase.database().ref('Bets/').set(Bets);
 // firebase.database().ref('scoredGames/').set(scoredGames);
-// firebase.database().ref('Counter/').set(counter);
+//firebase.database().ref('Counter/').set(counter);
 
 var firebaseUsers = firebase.database().ref('Users/');
 firebaseUsers.on("value", function (snapshot) {
-  Users = snapshot.val();
+  Users = snapshot.val() || [];
 })
 
 
 var firebaseGroups = firebase.database().ref('Groups/');
 firebaseGroups.on("value", function (snapshot) {
-  Groups = snapshot.val();
+  Groups = snapshot.val() || [];
 })
 
 var firebaseScores = firebase.database().ref('scores');
@@ -67,12 +65,12 @@ firebaseScoredGames.on("value", function (snapshot) {
 
 var firebasecounter = firebase.database().ref('Counter');
 firebasecounter.on("value", function (snapshot) {
-  counter = snapshot.val() || [];
+  counter = snapshot.val() || 0;
 })
 
 var firebaseGroupCounter = firebase.database().ref('groupCounter');
 firebaseGroupCounter.on("value", function (snapshot) {
-  groupCounter = snapshot.val() || [];
+  groupCounter = snapshot.val() || 0;
 })
 
 router.get('/', function (req, res, next) {
@@ -580,7 +578,7 @@ function removeUserFromGroup(user, group) {
   return group;
 }
 
-function backupOnceCuaseItsDumb() {
+function backupOnceCauseItsDumb() {
   var nowDate = Date.now()
 
   if (Users && Groups && Tokens && counter && groupCounter) {
@@ -589,12 +587,12 @@ function backupOnceCuaseItsDumb() {
 }
 
 function backUp() {
-  backupOnceCuaseItsDumb();
+  backupOnceCauseItsDumb();
   setInterval(() => {
     var nowDate = Date.now()
 
     firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
-  }, 60000 * 60 * 12); 
+  }, 60000 * 60 * 12);
 
 }
 

@@ -28,14 +28,9 @@ export default class App extends React.Component {
     this.updateTime = this.updateTime.bind(this);
     this.alertBox = this.alertBox.bind(this);
 
-    let time = new Date().toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })
-    if (time.length === 4) {
-      time = `0${time}`;
-    }
-
     this.state = {
       notRegistered: true,
-      time
+      time: ''
     };
   }
 
