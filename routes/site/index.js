@@ -9,6 +9,7 @@ const User = require('./User.js');
 const firebase = require('../../Fire');
 const db = require('firebase/database');
 const uuidv4 = require('uuid/v4');
+const moment = require('moment-timezone')
 
 var database = firebase.database();
 
@@ -27,7 +28,6 @@ let scoredGames = []
 
 
 // let dataJson;
-
 // firebase.database().ref('groupCounter/').set(groupCounter);
 // firebase.database().ref('Tokens/').set(Tokens);
 // firebase.database().ref('Users/').set(Users);
@@ -99,7 +99,6 @@ router.post('/', function (req, res, next) {
 
     var token = updateToken(user);
 
-    // if (currentUser.username === 'tal') {
     if (req.session.name && req.session.name.toLowerCase() === 'tal') {
       res.json({ user: currentUser, token, userGroups, status: true, scoredGames, admin: true });
     } else {
@@ -112,6 +111,11 @@ router.post('/', function (req, res, next) {
 
 router.post('/signout', function (req, res, next) {
   const { token } = req.body;
+
+  var firebaseTokens = firebase.database().ref('Tokens/');
+  firebaseTokens.on("value", function (snapshot) {
+    Tokens = snapshot.val();
+  })
 
   if (token) {
     Tokens[token] = null;
@@ -134,7 +138,6 @@ router.post('/loginWithToken', function (req, res, next) {
     updateUser(currentUser);
     const userGroups = getGroups(user);
 
-    // if (currentUser.username === 'tal') {
     if (req.session.name && req.session.name.toLowerCase() === 'tal') {
       res.json({ user: currentUser, userGroups, status: true, scoredGames, admin: true });
     } else {
@@ -577,5 +580,24 @@ function removeUserFromGroup(user, group) {
   return group;
 }
 
+function backupOnceCuaseItsDumb() {
+  var nowDate = Date.now()
+
+  if (Users && Groups && Tokens && counter && groupCounter) {
+    firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
+  }
+}
+
+function backUp() {
+  backupOnceCuaseItsDumb();
+  setInterval(() => {
+    var nowDate = Date.now()
+
+    firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
+  }, 60000 * 60 * 12); 
+
+}
+
+backUp();
 
 module.exports = router;
