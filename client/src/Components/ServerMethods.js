@@ -117,17 +117,15 @@ class ServerMethods {
         }).then(result => result.json());
     }
 
-    getGames() {
-        return fetch('/site/games', {
-            credentials: 'include',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(result => result.json());
-    }
-
-
+    // getGames() {
+    //     return fetch('/site/games', {
+    //         credentials: 'include',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then(result => result.json());
+    // }
 }
 
 export default new ServerMethods();
