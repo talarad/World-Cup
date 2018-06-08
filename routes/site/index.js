@@ -73,6 +73,32 @@ firebaseGroupCounter.on("value", function (snapshot) {
   groupCounter = snapshot.val() || 0;
 })
 
+router.get('/games', (req, res, next) => {
+  //let games = [];
+  const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=793')
+    .then(data => data.json());
+  const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=794')
+    .then(data => data.json());
+  const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=795')
+    .then(data => data.json());
+  const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=796')
+    .then(data => data.json());
+  const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=797')
+    .then(data => data.json());
+  const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=798')
+    .then(data => data.json());
+  const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=799')
+    .then(data => data.json());
+  const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=XPa6odcvyA2DC3QI&secret=A5NAhXYNtKvXrXEpMPwa2JFBjIeVM4Em&league=800')
+    .then(data => data.json());
+
+
+  Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
+    .then(([...groups]) => {
+      res.json(groups);
+    })
+})
+
 router.get('/', function (req, res, next) {
   let games = dataJson;
   games.sort(function (a, b) {

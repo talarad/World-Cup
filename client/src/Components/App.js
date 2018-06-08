@@ -59,6 +59,19 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
+    // let games = [];
+    // ServerMethods.getGames().then(result => {
+    //   // console.log(result)
+    //   result.forEach(group => {
+    //     group.data.fixtures.forEach(element => {
+    //       games.push(element);
+    //       //console.log(element)
+    //     })
+    //   })
+    // }).then(() => {
+    //   console.log(JSON.stringify(games))
+    // })
+
     const token = localStorage.getItem('token')
     if (token) {
 
