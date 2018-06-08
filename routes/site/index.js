@@ -110,11 +110,6 @@ router.post('/', function (req, res, next) {
 router.post('/signout', function (req, res, next) {
   const { token } = req.body;
 
-  var firebaseTokens = firebase.database().ref('Tokens/');
-  firebaseTokens.on("value", function (snapshot) {
-    Tokens = snapshot.val();
-  })
-
   if (token) {
     Tokens[token] = null;
     firebase.database().ref('Tokens').set(Tokens);
@@ -124,10 +119,10 @@ router.post('/signout', function (req, res, next) {
   res.end();
 })
 
-router.post('/loginWithToken', function (req, res, next) {
+router.post('/loginWithToken', async (req, res, next) => {
   const { token } = req.body;
 
-  const user = tryLoginWithToken(token);
+  const user = await tryLoginWithToken(token);
   if (user) {
     if (req.session.name === undefined) {
       req.session.name = username.toLowerCase();
@@ -355,11 +350,6 @@ function removeGroupFromUser(user, group) {
 function updateToken(user) {
   const token = uuidv4();
 
-  var firebaseTokens = firebase.database().ref('Tokens/');
-  firebaseTokens.on("value", function (snapshot) {
-    Tokens = snapshot.val();
-  })
-
   Tokens[token] = user.username;
   firebase.database().ref('Tokens/').set(Tokens);
 
@@ -389,20 +379,15 @@ function updateGroup(group) {
 }
 
 function tryLoginWithToken(token) {
-  var firebaseTokens = firebase.database().ref('Tokens/');
-  firebaseTokens.on("value", function (snapshot) {
-    Tokens = snapshot.val();
-  })
-
   const username = Tokens[token];
 
   if (username) {
     const user = Users.find(userFromUsers => { return userFromUsers.username.toLowerCase() === username.toLowerCase() })
     if (user && user != -1) {
-      return user
+      return user;
+    } else {
+      return false
     }
-  } else {
-    return false;
   }
 }
 
@@ -580,7 +565,6 @@ function removeUserFromGroup(user, group) {
 
 function backupOnceCauseItsDumb() {
   var nowDate = Date.now()
-
   if (Users && Groups && Tokens && counter && groupCounter) {
     firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
   }
@@ -590,10 +574,11 @@ function backUp() {
   backupOnceCauseItsDumb();
   setInterval(() => {
     var nowDate = Date.now()
+    if (Users && Groups && Tokens && counter && groupCounter) {
 
-    firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
+      firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
+    }
   }, 60000 * 60 * 12);
-
 }
 
 backUp();
