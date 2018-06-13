@@ -5,10 +5,9 @@ export default class GroupTable extends React.Component {
     renderNextGames() {
         var counter = 0;
         if (this.props.member.id !== this.props.user.id) {
-
             return (
                 this.props.games.map((game, index) => {
-                    if (game.date === this.props.closestDate && this.props.member.bets && counter < this.props.gamesInSameDay) {
+                    if (game.date === this.props.closestDate && this.props.member.bets && counter < this.props.gamesInSameDay && this.props.user.bets[game.id]) {
                         counter++;
                         const away = this.props.member.bets[game.id] ? this.props.member.bets[game.id].away : '';
                         const home = this.props.member.bets[game.id] ? this.props.member.bets[game.id].home : '';
@@ -25,7 +24,7 @@ export default class GroupTable extends React.Component {
         } else {
             return (
                 this.props.games.map((game, index) => {
-                    if (game.date === this.props.closestDate && this.props.member.bets && counter < this.props.gamesInSameDay) {
+                    if (game.date === this.props.closestDate && this.props.member.bets && counter < this.props.gamesInSameDay && this.props.user.bets[game.id]) {
                         counter++;
                         const away = this.props.user.bets[game.id] ? this.props.user.bets[game.id].away : '';
                         const home = this.props.user.bets[game.id] ? this.props.user.bets[game.id].home : '';
