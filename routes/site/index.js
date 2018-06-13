@@ -592,7 +592,7 @@ function removeUserFromGroup(user, group) {
 function backupOnceCauseItsDumb() {
   var nowDate = Date.now()
   if (Users && Groups && Tokens && counter && groupCounter) {
-    var firebaseBackup = firebase.database().ref('backups');
+    var firebaseBackup = firebase.database().ref('backups/');
     firebaseBackup.on("value", function (snapshot) {
       let backups = snapshot.val();
       backups[nowDate] = { Users, Groups, Tokens, counter, groupCounter }
@@ -607,7 +607,7 @@ function backUp() {
     var nowDate = Date.now()
     if (Users && Groups && Tokens && counter && groupCounter) {
 
-      var firebaseBackup = firebase.database().ref('backups');
+      var firebaseBackup = firebase.database().ref('backups/');
       firebaseBackup.on("value", function (snapshot) {
         let backups = snapshot.val();
         backups[nowDate] = { Users, Groups, Tokens, counter, groupCounter }
