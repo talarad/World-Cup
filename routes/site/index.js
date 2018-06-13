@@ -592,7 +592,12 @@ function removeUserFromGroup(user, group) {
 function backupOnceCauseItsDumb() {
   var nowDate = Date.now()
   if (Users && Groups && Tokens && counter && groupCounter) {
-    firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
+    var firebaseBackup = firebase.database().ref('backups');
+    firebaseBackup.on("value", function (snapshot) {
+      let backups = snapshot.val();
+      backups[nowDate] = { Users, Groups, Tokens, counter, groupCounter }
+      firebase.database().ref(`backups/`).set(backups);
+    })
   }
 }
 
@@ -602,9 +607,14 @@ function backUp() {
     var nowDate = Date.now()
     if (Users && Groups && Tokens && counter && groupCounter) {
 
-      firebase.database().ref(`/backups/${nowDate}`).set({ Users, Groups, Tokens, counter, groupCounter });
+      var firebaseBackup = firebase.database().ref('backups');
+      firebaseBackup.on("value", function (snapshot) {
+        let backups = snapshot.val();
+        backups[nowDate] = { Users, Groups, Tokens, counter, groupCounter }
+        firebase.database().ref(`backups/`).set(backups);
+      })
     }
-  }, 60000 * 60 * 12);
+  }, 60000 * 60 * 24);
 }
 
 backUp();
