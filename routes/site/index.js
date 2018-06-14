@@ -136,13 +136,17 @@ router.post('/', function (req, res, next) {
 router.post('/signout', function (req, res, next) {
   const { token } = req.body;
 
-  if (token) {
-    Tokens[token] = null;
-    firebase.database().ref('Tokens').set(Tokens);
-  }
+  var firebaseTokens = firebase.database().ref('Tokens/');
+  firebaseTokens.on("value", function (snapshot) {
+    Tokens = snapshot.val() || [];
+    if (token) {
+      Tokens[token] = null;
+      firebase.database().ref('Tokens').set(Tokens);
+    }
 
-  req.session.destroy();
-  res.end();
+    req.session.destroy();
+    res.end();
+  })
 })
 
 router.post('/loginWithToken', async (req, res, next) => {
@@ -375,9 +379,12 @@ function removeGroupFromUser(user, group) {
 
 function updateToken(user) {
   const token = uuidv4();
-
-  Tokens[token] = user.username;
-  firebase.database().ref('Tokens/').set(Tokens);
+  var firebaseTokens = firebase.database().ref('Tokens/');
+  firebaseTokens.on("value", function (snapshot) {
+    Tokens = snapshot.val() || [];
+    Tokens[token] = user.username;
+    firebase.database().ref('Tokens/').set(Tokens);
+  })
 
   return token;
 }
@@ -594,7 +601,7 @@ function backupOnceCauseItsDumb() {
   if (Users && Groups && Tokens && counter && groupCounter) {
     var firebaseBackup = firebase.database().ref('backups/');
     firebaseBackup.on("value", function (snapshot) {
-      let backups = snapshot.val();
+      let backups = snapshot.val() || {};
       backups[nowDate] = { Users, Groups, Tokens, counter, groupCounter }
       firebase.database().ref(`backups/`).set(backups);
     })
@@ -609,12 +616,12 @@ function backUp() {
 
       var firebaseBackup = firebase.database().ref('backups/');
       firebaseBackup.on("value", function (snapshot) {
-        let backups = snapshot.val();
+        let backups = snapshot.val() || {};
         backups[nowDate] = { Users, Groups, Tokens, counter, groupCounter }
         firebase.database().ref(`backups/`).set(backups);
       })
     }
-  }, 60000 * 60 * 24);
+  }, 60000 * 60 * 12);
 }
 
 backUp();
