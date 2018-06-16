@@ -26,7 +26,7 @@ const data = [
     {
         "id": "856737",
         "date": "2018-06-19",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Russia",
         "away_name": "Egypt",
@@ -62,7 +62,7 @@ const data = [
     {
         "id": "856740",
         "date": "2018-06-25",
-        "time": "18:00:00",
+        "time": "17:00:00",
         "round": "GS",
         "home_name": "Saudi Arabia",
         "away_name": "Egypt",
@@ -98,7 +98,7 @@ const data = [
     {
         "id": "856743",
         "date": "2018-06-20",
-        "time": "18:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "Portugal",
         "away_name": "Morroco",
@@ -110,7 +110,7 @@ const data = [
     {
         "id": "856744",
         "date": "2018-06-20",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Iran",
         "away_name": "Spain",
@@ -122,7 +122,7 @@ const data = [
     {
         "id": "856745",
         "date": "2018-06-25",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Iran",
         "away_name": "Portugal",
@@ -134,7 +134,7 @@ const data = [
     {
         "id": "856746",
         "date": "2018-06-25",
-        "time": "19:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Spain",
         "away_name": "Morroco",
@@ -146,7 +146,7 @@ const data = [
     {
         "id": "856729",
         "date": "2018-06-16",
-        "time": "18:00:00",
+        "time": "13:00:00",
         "round": "GS",
         "home_name": "France",
         "away_name": "Australia",
@@ -158,7 +158,7 @@ const data = [
     {
         "id": "856730",
         "date": "2018-06-16",
-        "time": "18:00:00",
+        "time": "19:00:00",
         "round": "GS",
         "home_name": "Peru",
         "away_name": "Denmark",
@@ -170,7 +170,7 @@ const data = [
     {
         "id": "856732",
         "date": "2018-06-21",
-        "time": "16:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "France",
         "away_name": "Peru",
@@ -182,7 +182,7 @@ const data = [
     {
         "id": "856731",
         "date": "2018-06-21",
-        "time": "17:00:00",
+        "time": "18:00:00",
         "round": "GS",
         "home_name": "Denmark",
         "away_name": "Australia",
@@ -194,7 +194,7 @@ const data = [
     {
         "id": "856733",
         "date": "2018-06-26",
-        "time": "18:00:00",
+        "time": "17:00:00",
         "round": "GS",
         "home_name": "Denmark",
         "away_name": "France",
@@ -206,7 +206,7 @@ const data = [
     {
         "id": "856734",
         "date": "2018-06-26",
-        "time": "18:00:00",
+        "time": "17:00:00",
         "round": "GS",
         "home_name": "Australia",
         "away_name": "Peru",
@@ -218,7 +218,7 @@ const data = [
     {
         "id": "856747",
         "date": "2018-06-16",
-        "time": "18:00:00",
+        "time": "16:00:00",
         "round": "GS",
         "home_name": "Argentina",
         "away_name": "Iceland",
@@ -230,7 +230,7 @@ const data = [
     {
         "id": "856748",
         "date": "2018-06-16",
-        "time": "19:00:00",
+        "time": "22:00:00",
         "round": "GS",
         "home_name": "Croatia",
         "away_name": "Nigeria",
@@ -242,7 +242,7 @@ const data = [
     {
         "id": "856749",
         "date": "2018-06-21",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Argentina",
         "away_name": "Croatia",
@@ -266,7 +266,7 @@ const data = [
     {
         "id": "856751",
         "date": "2018-06-26",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Nigeria",
         "away_name": "Argentina",
@@ -278,7 +278,7 @@ const data = [
     {
         "id": "856752",
         "date": "2018-06-26",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Iceland",
         "away_name": "Croatia",
@@ -290,7 +290,7 @@ const data = [
     {
         "id": "856753",
         "date": "2018-06-17",
-        "time": "17:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "Costa Rica",
         "away_name": "Serbia",
@@ -302,7 +302,7 @@ const data = [
     {
         "id": "856754",
         "date": "2018-06-17",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Brazil",
         "away_name": "Switzerland",
@@ -314,7 +314,7 @@ const data = [
     {
         "id": "856755",
         "date": "2018-06-22",
-        "time": "18:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "Brazil",
         "away_name": "Costa Rica",
@@ -326,7 +326,7 @@ const data = [
     {
         "id": "856756",
         "date": "2018-06-22",
-        "time": "19:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Serbia",
         "away_name": "Switzerland",
@@ -338,7 +338,7 @@ const data = [
     {
         "id": "856757",
         "date": "2018-06-27",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Serbia",
         "away_name": "Brazil",
@@ -350,7 +350,7 @@ const data = [
     {
         "id": "856758",
         "date": "2018-06-27",
-        "time": "18:00:00",
+        "time": "20:00:00",
         "round": "GS",
         "home_name": "Switzerland",
         "away_name": "Costa Rica",
@@ -374,7 +374,7 @@ const data = [
     {
         "id": "856724",
         "date": "2018-06-18",
-        "time": "18:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "Sweden",
         "away_name": "South Korea",
@@ -386,7 +386,7 @@ const data = [
     {
         "id": "856725",
         "date": "2018-06-23",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "South Korea",
         "away_name": "Mexico",
@@ -410,7 +410,7 @@ const data = [
     {
         "id": "856728",
         "date": "2018-06-27",
-        "time": "16:00:00",
+        "time": "17:00:00",
         "round": "GS",
         "home_name": "Mexico",
         "away_name": "Sweden",
@@ -422,7 +422,7 @@ const data = [
     {
         "id": "856727",
         "date": "2018-06-27",
-        "time": "18:00:00",
+        "time": "17:00:00",
         "round": "GS",
         "home_name": "South Korea",
         "away_name": "Germany",
@@ -446,7 +446,7 @@ const data = [
     {
         "id": "856760",
         "date": "2018-06-18",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Tunisia",
         "away_name": "England",
@@ -458,7 +458,7 @@ const data = [
     {
         "id": "856761",
         "date": "2018-06-23",
-        "time": "18:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "Belgium",
         "away_name": "Tunisia",
@@ -470,7 +470,7 @@ const data = [
     {
         "id": "856762",
         "date": "2018-06-24",
-        "time": "18:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "England",
         "away_name": "Panama",
@@ -482,7 +482,7 @@ const data = [
     {
         "id": "856764",
         "date": "2018-06-28",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Panama",
         "away_name": "Tunisia",
@@ -494,7 +494,7 @@ const data = [
     {
         "id": "856763",
         "date": "2018-06-28",
-        "time": "19:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "England",
         "away_name": "Belgium",
@@ -518,7 +518,7 @@ const data = [
     {
         "id": "856718",
         "date": "2018-06-19",
-        "time": "18:00:00",
+        "time": "15:00:00",
         "round": "GS",
         "home_name": "Poland",
         "away_name": "Senegal",
@@ -530,7 +530,7 @@ const data = [
     {
         "id": "856719",
         "date": "2018-06-24",
-        "time": "16:00:00",
+        "time": "18:00:00",
         "round": "GS",
         "home_name": "Japan",
         "away_name": "Senegal",
@@ -542,7 +542,7 @@ const data = [
     {
         "id": "856720",
         "date": "2018-06-24",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Poland",
         "away_name": "Colombia",
@@ -566,7 +566,7 @@ const data = [
     {
         "id": "856721",
         "date": "2018-06-28",
-        "time": "18:00:00",
+        "time": "17:00:00",
         "round": "GS",
         "home_name": "Japan",
         "away_name": "Poland",
