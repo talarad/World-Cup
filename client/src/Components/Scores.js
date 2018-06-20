@@ -23,8 +23,8 @@ export default class Scores extends React.Component {
             let rows = [];
 
             this.props.group.members.forEach((member, index) => {
-                
-                rows.push(<GroupTable key={index} user={this.props.user} gamesInSameDay={gamesInSameDay} member={member} score={member.score}
+
+                rows.push(<GroupTable key={index} index={index} user={this.props.user} gamesInSameDay={gamesInSameDay} member={member} score={member.score}
                     games={this.props.games} groupID={this.props.group.id} closestDate={closestDate} leaveGroup={this.props.leaveGroup} />);
             });
 
@@ -32,6 +32,7 @@ export default class Scores extends React.Component {
                 <table className="friends">
                     <tbody>
                         <tr key='tableHead'>
+                            <th> # </th>
                             <th>Name</th>
                             <th colSpan={gamesInSameDay}>Next games</th>
                             <th>Total Score</th>
@@ -81,9 +82,9 @@ export default class Scores extends React.Component {
                 gamesInSameDay++;
             }
         }
-        
-         //closestDate = "2018-05-13"
-         //gamesInSameDay = 1;
+
+        //closestDate = "2018-05-13"
+        //gamesInSameDay = 1;
 
         return (
             <div className="img3" id="score">

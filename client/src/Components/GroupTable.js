@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default class GroupTable extends React.Component {
-
     renderNextGames() {
         var counter = 0;
         if (this.props.member.id !== this.props.user.id) {
@@ -49,6 +48,7 @@ export default class GroupTable extends React.Component {
             if (this.props.member.id === this.props.user.id) {
                 return (
                     <tr>
+                        <td>{this.props.index + 1}</td>
                         <td>
                             <button id="leave" onClick={() => this.props.leaveGroup(this.props.user, this.props.groupID)}>X</button>
                             {`${this.props.member.firstName} ${this.props.member.lastName}`}</td>
@@ -59,6 +59,7 @@ export default class GroupTable extends React.Component {
             } else {
                 return (
                     <tr>
+                         <td>{this.props.index + 1}</td>
                         <td>
                             {`${this.props.member.firstName} ${this.props.member.lastName}`}</td>
                         {this.renderNextGames()}
