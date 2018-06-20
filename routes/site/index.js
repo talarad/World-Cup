@@ -134,19 +134,19 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/signout', function (req, res, next) {
-  const { token } = req.body;
+  // const { token } = req.body;
 
-  var firebaseTokens = firebase.database().ref('Tokens/');
-  firebaseTokens.on("value", function (snapshot) {
-    Tokens = snapshot.val() || [];
-    if (token) {
-      Tokens[token] = null;
-      firebase.database().ref('Tokens').set(Tokens);
-    }
+  // var firebaseTokens = firebase.database().ref('Tokens/');
+  // firebaseTokens.on("value", function (snapshot) {
+  //   Tokens = snapshot.val() || [];
+  //   if (token) {
+  //     Tokens[token] = null;
+  //     firebase.database().ref('Tokens').set(Tokens);
+  //   }
 
     req.session.destroy();
     res.end();
-  })
+  // })
 })
 
 router.post('/loginWithToken', async (req, res, next) => {

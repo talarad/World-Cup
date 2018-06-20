@@ -41,16 +41,42 @@ export default class GroupTable extends React.Component {
         }
     }
 
-
+    renderLeaveButton() {
+        if (this.props.member.id === this.props.user.id) {
+            return <button id="leave" onClick={() => this.props.leaveGroup(this.props.user, this.props.groupID)}>X</button>
+        }
+    }
 
     render() {
         if (this.props.member) {
-            if (this.props.member.id === this.props.user.id) {
+            if (this.props.index + 1 === 1) {
                 return (
-                    <tr>
+                    <tr style={{ "background": "gold" }}>
                         <td>{this.props.index + 1}</td>
                         <td>
-                            <button id="leave" onClick={() => this.props.leaveGroup(this.props.user, this.props.groupID)}>X</button>
+                            {this.renderLeaveButton()}
+                            {`${this.props.member.firstName} ${this.props.member.lastName}`}</td>
+                        {this.renderNextGames()}
+                        <td>{this.props.score}</td>
+                    </tr>
+                )
+            } else if (this.props.index + 1 === 2) {
+                return (
+                    <tr style={{ "background": "#c0c0c0" }}>
+                        <td>{this.props.index + 1}</td>
+                        <td>
+                            {this.renderLeaveButton()}
+                            {`${this.props.member.firstName} ${this.props.member.lastName}`}</td>
+                        {this.renderNextGames()}
+                        <td>{this.props.score}</td>
+                    </tr>
+                )
+            } else if (this.props.index + 1 === 3) {
+                return (
+                    <tr style={{ "background": "#cd7f32" }}>
+                        <td>{this.props.index + 1}</td>
+                        <td>
+                            {this.renderLeaveButton()}
                             {`${this.props.member.firstName} ${this.props.member.lastName}`}</td>
                         {this.renderNextGames()}
                         <td>{this.props.score}</td>
@@ -59,8 +85,9 @@ export default class GroupTable extends React.Component {
             } else {
                 return (
                     <tr>
-                         <td>{this.props.index + 1}</td>
+                        <td>{this.props.index + 1}</td>
                         <td>
+                            {this.renderLeaveButton()}
                             {`${this.props.member.firstName} ${this.props.member.lastName}`}</td>
                         {this.renderNextGames()}
                         <td>{this.props.score}</td>
