@@ -4,13 +4,17 @@ import React from 'react';
 export default class FinishedGame extends React.Component {
 
     renderMyBet(game) {
-        const bets = this.props.user.bets;
-        if (bets && bets[game.id]) {
-            return (
-                <div className="regular-text3">
-                    My bet: {bets[game.id].away} - {bets[game.id].home}
-                </div>
-            )
+        if (this.props.user && this.props.user.bets) {
+            const bets = this.props.user.bets;
+            if (bets && bets[game.id]) {
+                return (
+                    <div className="regular-text3">
+                        My bet: {bets[game.id].away} - {bets[game.id].home}
+                    </div>
+                )
+            }
+        } else {
+            return null;
         }
     }
 
