@@ -3,13 +3,24 @@ import React from 'react';
 
 export default class FinishedGame extends React.Component {
 
+    renderMyBet(game) {
+        const bets = this.props.user.bets;
+        if (bets && bets[game.id]) {
+            return (
+                <div className="regular-text3">
+                    My bet: {bets[game.id].away} - {bets[game.id].home}
+                </div>
+            )
+        }
+    }
+
     renderBetButton() {
-        
         if (this.props.game) {
             const { game } = this.props;
             return (
                 <span>
                     score:  {game.away} - {game.home}
+                    {this.renderMyBet(game)}
                 </span>
             )
         }

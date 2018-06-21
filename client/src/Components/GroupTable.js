@@ -10,7 +10,7 @@ export default class GroupTable extends React.Component {
                         counter++;
                         const away = this.props.member.bets[game.id] ? this.props.member.bets[game.id].away : '';
                         const home = this.props.member.bets[game.id] ? this.props.member.bets[game.id].home : '';
-                        return (<td key={index}> {game.away_name}: <span id="green"> {away} </span>, {game.home_name}:<span id="green">  {home} </span></td>)
+                        return (<td key={index}> {game.away_name}: <span className="green"> {away} </span>, {game.home_name}:<span className="green">  {home} </span></td>)
                     } else if (game.date === this.props.closestDate && counter < this.props.gamesInSameDay) {
                         counter++;
                         return (<td key={index}> {game.away_name}: , {game.home_name}:</td>);
@@ -27,7 +27,7 @@ export default class GroupTable extends React.Component {
                         counter++;
                         const away = this.props.user.bets[game.id] ? this.props.user.bets[game.id].away : '';
                         const home = this.props.user.bets[game.id] ? this.props.user.bets[game.id].home : '';
-                        return (<td key={index}> {game.away_name}:  <span id="green">{away} </span>, {game.home_name}:  <span id="green">{home} </span> </td>)
+                        return (<td key={index}> {game.away_name}:  <span className="green">{away} </span>, {game.home_name}:  <span className="green">{home} </span> </td>)
 
                     } else if (game.date === this.props.closestDate && counter < this.props.gamesInSameDay) {
                         counter++;

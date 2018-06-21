@@ -351,7 +351,7 @@ export default class App extends React.Component {
         <Scores leaveGroup={this.leaveGroup} changeGroupView={this.changeGroupView} group={this.getgroup()} games={this.state.games} user={this.state.user} />
         <Games time={this.state.time} games={this.state.games} user={this.state.user} updateBet={this.updateBet} />
         <Manage user={this.state.user} addToGroup={this.addToGroup} createGroup={this.createGroup} />
-        <PastGames games={this.state.games} scores={this.state.scores} />
+        <PastGames user={this.state.user} games={this.state.games} scores={this.state.scores} />
         {this.renderAdmin()}
       </div>
     )
