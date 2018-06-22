@@ -69,7 +69,7 @@ export default class Game extends React.Component {
 
     render() {
         return (
-            <div className="game">
+            <div className="game-bet">
                 {this.props.game.date}, {this.props.game.time.substring(0, 5)} <br />
                 {this.props.game.away_name} - {this.props.game.home_name} <br />
                 <span className="bet-render">

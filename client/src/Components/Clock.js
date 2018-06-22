@@ -12,7 +12,7 @@ export default class Clock extends React.Component {
             const time = moment(Date.now()).tz('Europe/Moscow').format('HH:mm');
             this.setState({ time })
             this.props.updateTime(time)
-        }, 10000);
+        }, 3000);
     }
 
 
