@@ -386,7 +386,7 @@ const data = [
     {
         "id": "856725",
         "date": "2018-06-23",
-        "time": "21:00:00",
+        "time": "18:00:00",
         "round": "GS",
         "home_name": "South Korea",
         "away_name": "Mexico",
@@ -398,7 +398,7 @@ const data = [
     {
         "id": "856726",
         "date": "2018-06-23",
-        "time": "18:00:00",
+        "time": "21:00:00",
         "round": "GS",
         "home_name": "Germany",
         "away_name": "Sweden",
