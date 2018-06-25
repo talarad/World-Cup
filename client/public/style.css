@@ -447,9 +447,9 @@ h3 {
   align-content: center;
   align-items: center;
   text-align: center;
-  margin: 20px;
-  float: left;
-  font-size: 22px;
+  margin: 3px;
+  /* float: left; */
+  font-size: 24px;
   font-weight: 300;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   color: rgb(224, 224, 224);
@@ -492,7 +492,7 @@ h3 {
 .bet-render {
   letter-spacing: 2px;
   text-transform: uppercase;
-  font: 20px "Lato", sans-serif;
+  font: 22px "Lato", sans-serif;
   color: red;
   font-weight: bold;
 }
