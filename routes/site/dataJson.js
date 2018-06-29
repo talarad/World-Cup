@@ -626,24 +626,49 @@ const data = [
         "date": "2018-07-02",
         "time": "17:00:00",
         "round": "GS",
-        "home_name": "Winner 5",
-        "away_name": "Co Winner 6",
+        "home_name": "Brazil",
+        "away_name": "Mexico",
         "location": "---",
         "league_id": "900",
-        "home_id": "",
-        "away_id": ""
+        "home_id": "1448",
+        "away_id": "1450"
     },
     {
         "id": "90005",
         "date": "2018-07-02",
         "time": "21:00:00",
         "round": "GS",
-        "home_name": "Winner 7",
-        "away_name": "Co Winner 8",
+        "home_name": "Belgium",
+        "away_name": "Japan",
         "location": "---",
         "league_id": "900",
-        "home_id": "",
-        "away_id": ""
+        "home_id": "1453",
+        "away_id": "1458"
+    },
+
+    {
+        "id": "90006",
+        "date": "2018-07-03",
+        "time": "17:00:00",
+        "round": "GS",
+        "home_name": "Sweden",
+        "away_name": "Switzerland",
+        "location": "---",
+        "league_id": "900",
+        "home_id": "1451",
+        "away_id": "208"
+    },
+    {
+        "id": "90007",
+        "date": "2018-07-03",
+        "time": "21:00:00",
+        "round": "GS",
+        "home_name": "Colombia",
+        "away_name": "England",
+        "location": "---",
+        "league_id": "900",
+        "home_id": "1457",
+        "away_id": "1456"
     },
 ]
 
