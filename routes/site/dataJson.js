@@ -670,6 +670,30 @@ const data = [
         "home_id": "1457",
         "away_id": "1456"
     },
+    {
+        "id": "90008",
+        "date": "2018-07-06",
+        "time": "17:00:00",
+        "round": "GS",
+        "home_name": "Uruguay",
+        "away_name": "France",
+        "location": "---",
+        "league_id": "900",
+        "home_id": "1434",
+        "away_id": "1439"
+    },
+    {
+        "id": "90009",
+        "date": "2018-07-06",
+        "time": "21:00:00",
+        "round": "GS",
+        "home_name": "Brazil",
+        "away_name": "Belgium",
+        "location": "---",
+        "league_id": "900",
+        "home_id": "1448",
+        "away_id": "1453"
+    },
 ]
 
 module.exports = data;
