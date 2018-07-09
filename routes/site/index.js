@@ -553,11 +553,11 @@ function updatePoints(game) {
 
     if (bet.id === game.id) {
       if (bet.home.toString() === game.home.toString() && bet.away.toString() === game.away.toString()) {
-        betUser.score += 75;
+        betUser.score += 90;
       } else if ((bet.home.toString() > bet.away.toString() && game.home.toString() > game.away.toString()) ||
         (bet.home.toString() < bet.away.toString() && game.home.toString() < game.away.toString()) ||
         (bet.home.toString() === bet.away.toString() && game.home.toString() === game.away.toString())) {
-        betUser.score += 25;
+        betUser.score += 30;
       }
     }
   })
