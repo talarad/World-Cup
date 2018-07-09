@@ -740,7 +740,20 @@ const data = [
         "league_id": "900",
         "home_id": "211",
         "away_id": "1456"
+    },
+    {
+        "id": "90014",
+        "date": "2018-07-14",
+        "time": "17:00:00",
+        "round": "GS",
+        "home_name": "Loser semi 1",
+        "away_name": "Loser semi 2",
+        "location": "---",
+        "league_id": "900",
+        "home_id": "000",
+        "away_id": "000"
     }
+
 ]
 
 module.exports = data;
