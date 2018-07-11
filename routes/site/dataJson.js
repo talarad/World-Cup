@@ -746,12 +746,24 @@ const data = [
         "date": "2018-07-14",
         "time": "17:00:00",
         "round": "GS",
-        "home_name": "Loser semi 1",
-        "away_name": "Loser semi 2",
+        "home_name": "England",
+        "away_name": "Belgium",
         "location": "---",
         "league_id": "900",
-        "home_id": "000",
-        "away_id": "000"
+        "home_id": "1456",
+        "away_id": "1453"
+    },
+    {
+        "id": "90015",
+        "date": "2018-07-15",
+        "time": "18:00:00",
+        "round": "GS",
+        "home_name": "France",
+        "away_name": "Croatia",
+        "location": "---",
+        "league_id": "900",
+        "home_id": "1439",
+        "away_id": "211"
     }
 
 ]
