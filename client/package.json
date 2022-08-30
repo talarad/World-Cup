@@ -9,7 +9,7 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.8.0",
     "history": "4.2.0",
-    "moment-timezone": "^0.5.17",
+    "moment-timezone": "^0.5.35",
     "prop-types": "^15.6.1",
     "re-base": "2.2.0",
     "react": "^16.3.0",
