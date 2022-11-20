@@ -10,7 +10,7 @@ export default class About extends React.Component {
                     <p className="desc3"> Get live updates of games and results </p>
                     <p className="desc2"> Track groups score and prove your supremacy </p>
                     <br/>
-                    <p className="desc3"> Every day bet on the same day's games, Recieve 30 points if you prediceted the end score, or 10 points if you bet on the winner</p>
+                    <p className="desc3"> Every day bet on the same day's games, Receive 30 points if you predicted the final score, or 10 points if you bet on the winner </p>
                 </div>
             </div>
         )

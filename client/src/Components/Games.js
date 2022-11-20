@@ -54,7 +54,7 @@ export default class Games extends React.Component {
         return (
             <div className="regular" id="games">
                 <div className="borderScores">
-                    <p className="desc3">Bet some future games scores</p>
+                    <p className="desc3">Bet on future games' scores</p>
                     {this.renderGames()}
                 </div>
             </div>
