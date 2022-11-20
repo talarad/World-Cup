@@ -17,7 +17,7 @@ export default class Game extends React.Component {
             }
             if (user.bets) {
                 Object.keys(user.bets).forEach(bet => {
-                    if (user.bets[bet].id.toString() === gameID.toString()) {
+                    if (user.bets[bet] && user.bets[bet].id.toString() === gameID.toString()) {
                         userBet = user.bets[bet];
                     }
                 })
