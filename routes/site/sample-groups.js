@@ -26,3 +26,61 @@ group3.addMember(Users[8]);
 const Groups = [group1, group2, group3]
 
 module.exports = Groups;
+
+
+const friends = [{
+    away: "1",
+    done: false,
+    home: "1",
+    id: "1",
+    playerid: 0 //tal
+}, {
+    away: "2",
+    done: false,
+    home: "0",
+    id: "1",
+    playerid: 1 //michael
+}, {
+    away: "2",
+    done: false,
+    home: "0",
+    id: "1",
+    playerid: 2 //doron
+}, {
+    away: "2",
+    done: false,
+    home: "1",
+    id: "1",
+    playerid: 3 //nitz
+}, {
+    away: "1",
+    done: false,
+    home: "1",
+    id: "1",
+    playerid: 4 //priz
+}, {
+    away: "2",
+    done: false,
+    home: "1",
+    id: "1",
+    playerid: 5 //ishai
+}, {
+    away: "3",
+    done: false,
+    home: "1",
+    id: "1",
+    playerid: 6 //shiran
+}, {
+    away: "2",
+    done: false,
+    home: "1",
+    id: "1",
+    playerid: 7 //itamar
+}, {
+    away: "2",
+    done: false,
+    home: "0",
+    id: "1",
+    playerid: 9 //ron
+}
+]
