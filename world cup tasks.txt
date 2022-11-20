@@ -1,0 +1,172 @@
+
+dagutupazo@b2bx.net ,,,,,,,, 12342345
+mongodb://<dbuser>:<dbpassword>@ds251179.mlab.com:51179/worldcup
+
+const matches = fetch('http://worldcup.sfg.io/matches').then(res => res.json())
+    const results = fetch('http://worldcup.sfg.io/teams/group_results').then(res => res.json())
+    const teams = fetch('http://worldcup.sfg.io/teams/').then(res => res.json())
+    const current = fetch('http://worldcup.sfg.io/matches/current').then(res => res.json())
+
+    Promise.all([matches, results, teams, current]).then(([matches, results, teams, current]) => this.setState({ matches, results, teams, current }))
+
+
+https://www.flashscore.com/football/world/world-cup/fixtures/s
+
+
+  //fetch('http://livescore-api.com/api-client/scores/live.json?key=VUNDFCPGYqp4nWzr&secret=UNa1DZ3uMUCslilgc8USLJzJaYOxVnZQ&country=55')
+  // fetch('http://api.football-data.org/v1/competitions/55/teams', {
+  //   headers: {
+  //     'X-Auth-Token': '1839ebb72e4f4a06a05ff72ea0918431'
+  //   }
+
+  let games = [];
+  // const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=793')
+  //   .then(data => data.json());
+  // const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=794')
+  //   .then(data => data.json());
+  // const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=795')
+  //   .then(data => data.json());
+  // const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=796')
+  //   .then(data => data.json());
+  // const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=797')
+  //   .then(data => data.json());
+  // const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=798')
+  //   .then(data => data.json());
+  // const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=799')
+  //   .then(data => data.json());
+  // const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LOkpeBUcRkFcqRgy&secret=kDdTgB9dLneq92tUQOk5qeihzXu0PKz9&league=800')
+  //   .then(data => data.json());
+
+
+  // Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
+  //   .then(([...groups]) => {
+  //     groups.forEach(group => {
+  //       group.data.fixtures.forEach(game => {
+  //         games.push(game)
+  //       })
+  //     })
+  //   })
+  // .then(data => {
+
+
+firebase
+
+import firebase from "firebase";
+import functions from "firebase/functions";
+
+    submit(e) {
+      if (this.$refs.form.validate()) {
+        // Native form submission is not yet supported
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(fireUser => {
+            this.user = fireUser;
+            this.postPost();
+            alert(`Account created for ${fireUser.email}`);
+            this.$router.push("/");
+          });
+      }
+      e.preventDefault();
+    },
+    clear() {
+      this.$refs.form.reset();
+    }
+
+    postPost() {
+      var curUser = firebase.auth().currentUser;
+      curUser.updateProfile({
+  displayName: this.SummonerName
+}).then(function() {
+  // Update successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
+      let createUser = firebase.functions().httpsCallable("createUser");
+      createUser({
+        rank: "0",
+        userId: this.user.uid,
+        displayName: this.SummonerName
+      })
+        .then(result => {
+          console.log(result);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
+
+
+ùèåéåú ùì äLIVE SCORE API
+
+
+// function updatePastGames() {
+//   let games = [];
+//   const groupA = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=793')
+//     .then(data => data.json());
+//   const groupB = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=794')
+//     .then(data => data.json());
+//   const groupC = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=795')
+//     .then(data => data.json());
+//   const groupD = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=796')
+//     .then(data => data.json());
+//   const groupE = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=797')
+//     .then(data => data.json());
+//   const groupF = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=798')
+//     .then(data => data.json());
+//   const groupG = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=799')
+//     .then(data => data.json());
+//   const groupH = fetch('http://livescore-api.com/api-client/scores/history.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=800')
+//     .then(data => data.json());
+
+//   Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
+//     .then(([...groups]) => {
+//       groups.forEach(group => {
+//         group.data.fixtures.forEach(game => {
+//           games.push(game)
+//         })
+//       })
+//     })
+//     .then(data => {
+//       scoredGames = data;
+//     })
+// }
+
+
+
+
+
+
+-----------------------------------------------------------------------
+
+
+// let games = [];
+  // const groupA = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=793')
+  //   .then(data => data.json());
+  // const groupB = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=794')
+  //   .then(data => data.json());
+  // const groupC = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=795')
+  //   .then(data => data.json());
+  // const groupD = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=796')
+  //   .then(data => data.json());
+  // const groupE = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=797')
+  //   .then(data => data.json());
+  // const groupF = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=798')
+  //   .then(data => data.json());
+  // const groupG = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=799')
+  //   .then(data => data.json());
+  // const groupH = fetch('http://livescore-api.com/api-client/fixtures/matches.json?key=LzMQ8qCNACCnT8HQ&secret=c4rqnS1zbf6Lw1dhAZ8JqKw1n9ohh57u&league=800')
+  //   .then(data => data.json());
+
+
+  // Promise.all([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH])
+  //   .then(([...groups]) => {
+  //     groups.forEach(group => {
+  //       group.data.fixtures.forEach(game => {
+  //         games.push(game)
+  //       })
+  //     })
+  //   })
+  //   .then(data => {
+  //     dataJson = games;

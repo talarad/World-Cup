@@ -1,0 +1,35 @@
+{
+  "name": "cotd",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {},
+  "dependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.12.2",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.8.0",
+    "history": "4.2.0",
+    "moment-timezone": "^0.5.17",
+    "prop-types": "^15.6.1",
+    "re-base": "2.2.0",
+    "react": "^16.3.0",
+    "react-addons-css-transition-group": "15.3.2",
+    "react-confirm-alert": "^2.0.2",
+    "react-dom": "^16.3.0",
+    "react-router": "4.0.0-alpha.4",
+    "react-scripts": "1.1.1",
+    "redux": "^3.7.2",
+    "underscore": "^1.8.3",
+    "unirest": "^0.5.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:3001",
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/.eslintrc"
+  }
+}
