@@ -28,7 +28,7 @@ export default class PastGames extends React.Component {
         }
         const today = this.getCurrentDate();
         return (
-            this.props.scores.map((game, index) => {
+            this.props.scores.filter(a => a).map((game, index) => {
                 if (game.date < today) {
                     return (<FinishedGame placeScore={this.props.placeScore} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
 

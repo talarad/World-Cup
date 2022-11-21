@@ -15,7 +15,7 @@ export default class AdminGame extends React.Component {
                     </span>
                 )
             }
-            Object.values(scoredGames).forEach(scoredGame => {
+            Object.values(scoredGames.filter(a => a)).forEach(scoredGame => {
                 if (scoredGame.id.toString() === gameID.toString()) {
                     score = scoredGame;
                 }

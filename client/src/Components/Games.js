@@ -39,7 +39,7 @@ export default class Games extends React.Component {
         let counter = 0;
 
         return (
-            this.props.games.map((game, index) => {
+            this.props.games.filter(game => game.date === date).sort((a, b) => a.time < b.time).map((game, index) => {
                 if (game.date === date && counter < 5) {
                     counter++;
                     return (<Game time={this.props.time} today={today} game={game} key={index} user={this.props.user} updateBet={this.props.updateBet} />)
