@@ -478,6 +478,35 @@ const data = [
         "home_id": "19",
         "away_id": "22"
     },
+
+    {
+        "id": "45",
+        "date": "2022-12-02",
+        "time": "17:00:00",
+        "home_name": "Uruguay",
+        "away_name": "Ghana",
+    },
+    {
+        "id": "46",
+        "date": "2022-12-02",
+        "time": "17:00:00",
+        "home_name": "Portugal",
+        "away_name": "Korea Republic",
+    },
+    {
+        "id": "47",
+        "date": "2022-12-02",
+        "time": "21:00:00",
+        "home_name": "Serbia",
+        "away_name": "Switzerland",
+    },
+    {
+        "id": "48",
+        "date": "2022-12-02",
+        "time": "21:00:00",
+        "home_name": "Brazil",
+        "away_name": "Cameroon",
+    },
 ]
 
 module.exports = data;
