@@ -506,6 +506,53 @@ const data = [
         "home_name": "Brazil",
         "away_name": "Cameroon",
     },
+
+    {
+        "id": "49",
+        "date": "2022-12-03",
+        "time": "17:00:00",
+        "home_name": "Netherlands",
+        "away_name": "United States",
+    },
+    {
+        "id": "50",
+        "date": "2022-12-03",
+        "time": "21:00:00",
+        "home_name": "Argentina",
+        "away_name": "Australia",
+    },
+
+    {
+        "id": "51",
+        "date": "2022-12-04",
+        "time": "17:00:00",
+        "home_name": "France",
+        "away_name": "Poland",
+    },
+    {
+        "id": "52",
+        "date": "2022-12-04",
+        "time": "21:00:00",
+        "home_name": "England",
+        "away_name": "Senegal",
+    },
+
+
+
+    {
+        "id": "53",
+        "date": "2022-12-05",
+        "time": "17:00:00",
+        "home_name": "Japan",
+        "away_name": "Croatia",
+    },
+    // {
+    //     "id": "54",
+    //     "date": "2022-12-05",
+    //     "time": "21:00:00",
+    //     "home_name": "",
+    //     "away_name": "",
+    // },
 ]
 
 module.exports = data;
