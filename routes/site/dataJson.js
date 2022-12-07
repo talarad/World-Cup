@@ -569,19 +569,57 @@ const data = [
         "away_name": "Switzerland",
     },
 
+    {
+        "id": "57",
+        "date": "2022-12-09",
+        "time": "17:00:00",
+        "home_name": "Brazil",
+        "away_name": "Croatia",
+    },
+
+    {
+        "id": "58",
+        "date": "2022-12-09",
+        "time": "21:00:00",
+        "home_name": "Netherlands",
+        "away_name": "Argentina",
+    },
+    {
+        "id": "59",
+        "date": "2022-12-10",
+        "time": "17:00:00",
+        "home_name": "Morocco",
+        "away_name": "Portugal",
+    },
+
+    {
+        "id": "60",
+        "date": "2022-12-10",
+        "time": "21:00:00",
+        "home_name": "England",
+        "away_name": "France",
+    },
     // {
-    //     "id": "57",
-    //     "date": "2022-12-09",
-    //     "time": "17:00:00",
+    //     "id": "61",
+    //     "date": "2022-12-13",
+    //     "time": "21:00:00",
+    //     "home_name": "",
+    //     "away_name": "",
+    // },
+    //
+    // {
+    //     "id": "62",
+    //     "date": "2022-12-14",
+    //     "time": "21:00:00",
     //     "home_name": "",
     //     "away_name": "",
     // },
 
     // {
-    //     "id": "58",
-    //     "date": "2022-12-09",
-    //     "time": "21:00:00",
-    //     "home_name": "Netherlands",
+    //     "id": "63",
+    //     "date": "2022-12-18",
+    //     "time": "17:00:00",
+    //     "home_name": "",
     //     "away_name": "",
     // },
 ]
