@@ -114,8 +114,6 @@ const data = [
         "home_id": "15",
         "away_id": "16"
     },
-
-
     {
         "id": "9",
         "date": "2022-11-23",
@@ -436,8 +434,6 @@ const data = [
         "home_id": "13",
         "away_id": "10"
     },
-
-
     {
         "id": "41",
         "date": "2022-12-01",
@@ -506,7 +502,6 @@ const data = [
         "home_name": "Brazil",
         "away_name": "Cameroon",
     },
-
     {
         "id": "49",
         "date": "2022-12-03",
@@ -521,7 +516,6 @@ const data = [
         "home_name": "Argentina",
         "away_name": "Australia",
     },
-
     {
         "id": "51",
         "date": "2022-12-04",
@@ -536,8 +530,6 @@ const data = [
         "home_name": "England",
         "away_name": "Senegal",
     },
-
-
     {
         "id": "53",
         "date": "2022-12-05",
@@ -552,8 +544,6 @@ const data = [
         "home_name": "Brazil",
         "away_name": "Korea Republic",
     },
-
-
     {
         "id": "55",
         "date": "2022-12-06",
@@ -568,7 +558,6 @@ const data = [
         "home_name": "Portugal",
         "away_name": "Switzerland",
     },
-
     {
         "id": "57",
         "date": "2022-12-09",
@@ -576,7 +565,6 @@ const data = [
         "home_name": "Brazil",
         "away_name": "Croatia",
     },
-
     {
         "id": "58",
         "date": "2022-12-09",
@@ -599,22 +587,20 @@ const data = [
         "home_name": "England",
         "away_name": "France",
     },
-    // {
-    //     "id": "61",
-    //     "date": "2022-12-13",
-    //     "time": "21:00:00",
-    //     "home_name": "",
-    //     "away_name": "",
-    // },
-    //
-    // {
-    //     "id": "62",
-    //     "date": "2022-12-14",
-    //     "time": "21:00:00",
-    //     "home_name": "",
-    //     "away_name": "",
-    // },
-
+    {
+        "id": "61",
+        "date": "2022-12-13",
+        "time": "21:00:00",
+        "home_name": "Argentina",
+        "away_name": "Croatia",
+    },
+    {
+        "id": "62",
+        "date": "2022-12-14",
+        "time": "21:00:00",
+        "home_name": "France",
+        "away_name": "Morocco",
+    },
     // {
     //     "id": "63",
     //     "date": "2022-12-18",
